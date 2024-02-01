@@ -1,0 +1,11 @@
+{
+	"menu": {
+		"text": "Crediti",
+		"home": "Home Principale",
+		"members": "Membri"
+	},
+	"Benvenuto": {
+		"benvenuto": "Benvenuto su SuperHeroes!",
+		"dopoBen": "Condividi la tua passione per i Super Eroi con la community!"
+	}
+}
