@@ -4,6 +4,7 @@ import ita from '/src/italiano.json';
 import eng from '/src/inglese.json';
 import hc from '/src/img/SuperHeroes.png';
 import menu from '/src/img/pause.png';
+import Login from '/src/componen/google/googlelogin.jsx';
 
 const Header = () => {
 	const [lang, setLang] = useState(eng);
@@ -52,6 +53,7 @@ const Header = () => {
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.home}</p>
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.members}</p>
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.text}</p>
+				<Login />
 				<select
 					onChange={(e) => cambiaLIngua(e.target.value)}
 					className="text-black outline-none rounded-md cursor-pointer"
