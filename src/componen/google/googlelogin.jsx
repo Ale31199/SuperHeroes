@@ -13,10 +13,15 @@ function Login() {
 		console.log('Login error:', error);
 	};
 
+	const logga = () => {
+		setLoggedIn(false);
+		googleLogout();
+	};
+
 	if (isLoggedIn) {
 		return (
 			<div>
-				<button onClick={googleLogout()} className="p-3 rounded-lg text-bold">
+				<button onClick={logga()} className="p-3 rounded-lg bg-white text-bold">
 					Logout
 				</button>
 			</div>
