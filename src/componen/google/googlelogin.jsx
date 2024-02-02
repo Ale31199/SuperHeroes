@@ -59,7 +59,12 @@ function Login() {
 			)}
 
 			{!isLoggedIn && (
-				<GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} buttonText="Accedi con Google" />
+				<GoogleLogin
+					scope="https://www.googleapis.com/auth/userinfo.profile"
+					onSuccess={handleLoginSuccess}
+					onError={handleLoginError}
+					buttonText="Accedi con Google"
+				/>
 			)}
 		</div>
 	);
