@@ -15,8 +15,8 @@ function Login() {
 		setLoggedIn(true);
 		if (accessToken) {
 			try {
-				const name = response.data.name;
-				const imageUrl = response.data.picture;
+				const name = response.profileObj.name;
+				const imageUrl = response.profileObj.imageUrl;
 
 				setUserName(name || '');
 				setUserProfileImage(imageUrl || '');
