@@ -36,21 +36,22 @@ const Header = () => {
 				<img
 					src={menu}
 					onClick={apriMenu}
-					className={`w-[30px] invert transition-all duration-500 md:invisible cursor-pointer ${
+					className={`w-[30px] invert transition-all duration-500 xl:invisible cursor-pointer ${
 						showmenu ? 'rotate-180' : 'rotate-90'
 					}`}
 				/>
 			</div>
 
 			<div
-				className={` md:flex md:bg-black md:justify-center md:items-center md:flex-row md:gap-6 md:absolute md:right-10 md:top-0 md:w-auto md:h-[80px] md:visible
+				className={` xl:flex xl:bg-black xl:justify-center xl:items-center xl:flex-row xl:gap-6 xl:absolute xl:right-10 xl:top-0 xl:w-auto xl:h-[80px] xl:border-0 xl:visible
 			${
 				showmenu
-					? 'flex bg-slate-950 justify-center items-center flex-col gap-3 border-t-2 border-white absolute top-[80px] w-[100%] h-[200px] visible transition-all duration-500'
-					: ' h-[0px] invisible absolute top-[80px] w-[100%]'
+					? 'flex bg-slate-950 justify-center items-center flex-col gap-3 gap-y-6 border-t-2 border-white absolute top-[80px] w-[100%] h-[350px] visible transition-all duration-500'
+					: ' h-[0px] invisible absolute top-[80px] w-[100%] '
 			}`}
 			>
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.home}</p>
+				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.profile}</p>
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.members}</p>
 				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.text}</p>
 				<Login />

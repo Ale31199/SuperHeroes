@@ -12,10 +12,10 @@ const body = () => {
 			</div>
 			<div className="bg-black bg-opacity-95 rounded-xl absolute top-[200px] w-[95%] h-fit gap-y-10 p-8 md:w-[85%] grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500  ">
 				<div className=" bg-slate-900 cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500">
-					<div className="w-full h-full overflow-hidden">
+					<div className="w-[100%] h-full overflow-hidden justify-center">
 						<img
 							src={sfondo}
-							className="object-cover h-[350px] rounded-xl hover:scale-125 transition-all duration-500"
+							className="object-cover w-[100%] h-[350px] rounded-xl hover:scale-125 transition-all duration-500"
 						/>
 					</div>
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">

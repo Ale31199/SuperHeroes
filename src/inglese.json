@@ -2,7 +2,8 @@
 	"menu": {
 		"text": "Credits",
 		"home": "Home Page",
-		"members": "Members"
+		"members": "Members",
+		"profile": "Profile"
 	},
 	"Benvenuto": {
 		"benvenuto": "Welcome on SuperHeroes!",

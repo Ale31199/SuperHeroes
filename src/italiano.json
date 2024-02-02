@@ -2,7 +2,8 @@
 	"menu": {
 		"text": "Crediti",
 		"home": "Home Principale",
-		"members": "Membri"
+		"members": "Membri",
+		"profile": "Profilo"
 	},
 	"Benvenuto": {
 		"benvenuto": "Benvenuto su SuperHeroes!",

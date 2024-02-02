@@ -9,16 +9,22 @@ function Login() {
 	const handleLoginSuccess = (response) => {
 		console.log('Login success:', response);
 
-		// Estrarre informazioni dell'utente
-		const name = response?.profileObj?.name;
-		const imageUrl = response?.profileObj?.imageUrl;
+		const idToken = response.credential.idToken;
+		const decodedToken = decodeJwt(idToken);
 
-		// Aggiornare lo stato con le informazioni dell'utente
+		const name = decodedToken?.name;
+		const imageUrl = decodedToken?.picture;
+
 		setUserName(name || '');
 		setUserProfileImage(imageUrl || '');
 
-		// Impostare lo stato di accesso a true
 		setLoggedIn(true);
+	};
+
+	const decodeJwt = (token) => {
+		const base64Url = token.split('.')[1];
+		const base64 = base64Url.replace('-', '+').replace('_', '/');
+		return JSON.parse(atob(base64));
 	};
 
 	const handleLoginError = (error) => {
