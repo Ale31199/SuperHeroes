@@ -16,7 +16,9 @@ function Login() {
 		if (accessToken) {
 			try {
 				// Effettua una chiamata API a Google per ottenere le informazioni dell'utente
-				const userInfoResponse = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo`);
+				const userInfoResponse = await axios.get(
+					`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`
+				);
 
 				const name = userInfoResponse.data.name;
 				const imageUrl = userInfoResponse.data.picture;
