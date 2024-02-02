@@ -45,7 +45,7 @@ const Header = () => {
 				className={` md:flex md:bg-black md:justify-center md:items-center md:flex-row md:gap-6 md:absolute md:right-10 md:top-0 md:w-auto md:h-[80px] md:visible
 			${
 				showmenu
-					? 'flex bg-neutral-800 justify-center items-center flex-col gap-3 border-t-2 border-white absolute top-[80px] w-[100%] h-[200px] visible transition-all duration-500'
+					? 'flex bg-slate-950 justify-center items-center flex-col gap-3 border-t-2 border-white absolute top-[80px] w-[100%] h-[200px] visible transition-all duration-500'
 					: ' h-[0px] invisible absolute top-[80px] w-[100%]'
 			}`}
 			>

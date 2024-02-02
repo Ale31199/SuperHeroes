@@ -1,25 +1,60 @@
 import sfondo from '/src/img/sfondo2.jpg';
 import { useState } from 'react';
+import video from '/src/img/videotest.mp4';
 
 const body = () => {
 	return (
 		<>
 			<div className="fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full ">
-				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]">gfdg</p>
-				<p className="text-white absolute text-lg md:text-xl top-[200px]">fd</p>
-				<img src={sfondo} className="opacity-10 object-cover md:scale-125 transition-all duration-500 " />
+				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]"></p>
+				<p className="text-white absolute text-lg md:text-xl top-[200px]"></p>
+				<img src={sfondo} className="opacity-30 blur-[2px] object-cover md:scale-125 transition-all duration-500 " />
 			</div>
+			<div className="bg-black bg-opacity-95 rounded-xl absolute top-[200px] w-[95%] h-fit gap-y-10 p-8 md:w-[85%] grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500  ">
+				<div className=" bg-slate-900 cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500">
+					<div className="w-full h-full overflow-hidden">
+						<img
+							src={sfondo}
+							className="object-cover h-[350px] rounded-xl hover:scale-125 transition-all duration-500"
+						/>
+					</div>
+					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
+						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
+							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia
+						</p>
+						<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+							<button className="hover:text-teal-400">Like 12</button>
+							<button className="hover:text-teal-400">Comments 345</button>
+						</div>
+					</div>
+				</div>
 
-			<div className="bg-black relative top-[350px] w-[100%] grid xl:grid-cols-3 xl:grid-rows-2 md:grid-cols-2 md:grid-rows-3 grid-cols-1 grid-rows-6 justify-items-center items-center transition-all duration-500 md:h-[700px] md:hover:h-[1100px]  xl:h-[500px] xl:hover:h-[750px] h-[1500px] ">
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
-
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
-
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
-
-				<div className=" bg-neutral-800 cursor-pointer  w-[95%] rounded-xl h-[200px] md:hover:h-[350px] transition-all duration-500"></div>
+				<div className=" bg-slate-900 cursor-pointer  w-[95%] rounded-xl h-fit transition-all duration-500">
+					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
+						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
+							Bello sto sito ci sto perdendo le oreeee hahahhaah
+						</p>
+						<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+							<button className="hover:text-teal-400">Like 23</button>
+							<button className="hover:text-teal-400">Comments 14</button>
+						</div>
+					</div>
+				</div>
+				<div className=" bg-slate-900 cursor-pointer  w-[95%] rounded-xl h-fit transition-all duration-500">
+					<div className="w-full h-full overflow-hidden">
+						<video src={video} controls className="object-cover h-[350px] rounded-xl " />
+					</div>
+					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
+						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">Welcome To The DCC</p>
+					</div>
+					<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+						<button className="hover:text-teal-400">Like 123</button>
+						<button className="hover:text-teal-400">Comments 5430</button>
+					</div>
+				</div>
 			</div>
 		</>
 	);
