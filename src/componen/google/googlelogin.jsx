@@ -18,7 +18,7 @@ function Login() {
 				// Effettua una chiamata API a Google per ottenere le informazioni dell'utente
 				const userInfoResponse = await axios.get(`https://www.googleapis.com/auth/userinfo.profile`);
 
-				const name = userInfoResponse.userinfo.profile;
+				const name = userInfoResponse.data;
 				const imageUrl = userInfoResponse.data.picture;
 
 				setUserName(name || '');
