@@ -12,6 +12,7 @@ function Login() {
 
 		const accessToken = response?.credential?.accessToken;
 
+		setLoggedIn(true);
 		if (accessToken) {
 			try {
 				// Effettua una chiamata API a Google per ottenere le informazioni dell'utente
@@ -24,7 +25,6 @@ function Login() {
 
 				setUserName(name || '');
 				setUserProfileImage(imageUrl || '');
-				setLoggedIn(true);
 			} catch (error) {
 				console.error('Error fetching user info:', error);
 			}
