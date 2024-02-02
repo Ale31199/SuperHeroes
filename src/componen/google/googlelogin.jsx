@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleLogin, GoogleLogout } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -39,9 +39,10 @@ function Login() {
 				<select className="p-2 bg-white rounded-xl flex flex-row justify-between w-[200px] h-[35px]">
 					<img src={userProfileImage} className="w-[20px] h-[20px]" alt="User Profile" />
 					<p className="text-bold">{userName}</p>
-					<GoogleLogout onLogoutSuccess={handleLogout}>
-						<option className="text-red-600 text-bold">Logout</option>
-					</GoogleLogout>
+
+					<option onClick={handleLogout} className="text-red-600 text-bold">
+						Logout
+					</option>
 				</select>
 			)}
 
