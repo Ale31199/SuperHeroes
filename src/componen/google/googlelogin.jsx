@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -8,39 +9,23 @@ function Login() {
 
 	const handleLoginSuccess = (response) => {
 		console.log('Login success:', response);
+		const accessToken = response?.credential?.accessToken;
 
-		const idToken = response.credential.idToken;
-		const decodedToken = decodeJwt(idToken);
-
-		const name = decodedToken?.name;
-		const imageUrl = decodedToken?.picture;
-
-		setUserName(name || '');
-		setUserProfileImage(imageUrl || '');
+		if (accessToken) {
+			axios
+				.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`)
+				.then((response) => {
+					const name = response.data.name;
+					const imageUrl = response.data.picture;
+					setUserName(name || '');
+					setUserProfileImage(imageUrl || '');
+				})
+				.catch((error) => {
+					console.error('Error fetching user info:', error);
+				});
+		}
 
 		setLoggedIn(true);
-	};
-
-	const decodeJwt = (token) => {
-		if (!token) {
-			console.error('Token is undefined or null');
-			return null;
-		}
-		const parts = token.split('.');
-		if (parts.length !== 3) {
-			console.error('Invalid token format');
-			return null;
-		}
-		const base64Url = parts[1];
-		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-		const jsonPayload = decodeURIComponent(
-			atob(base64)
-				.split('')
-				.map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-				.join('')
-		);
-
-		return JSON.parse(jsonPayload);
 	};
 
 	const handleLoginError = (error) => {
@@ -64,7 +49,7 @@ function Login() {
 						<p className="text-bold">{userName}</p>
 					</div>
 
-					<button onClick={handleLogout} className="text-white bg-red-900 p-1 text-bold">
+					<button onClick={handleLogout} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
 						Logout
 					</button>
 				</div>
