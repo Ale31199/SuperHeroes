@@ -36,14 +36,16 @@ function Login() {
 	return (
 		<div>
 			{isLoggedIn && (
-				<select className="p-2 bg-white rounded-xl flex flex-row justify-between w-[200px] h-[35px]">
-					<img src={userProfileImage} className="w-[20px] h-[20px]" alt="User Profile" />
-					<p className="text-bold">{userName}</p>
+				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
+					<div className="w-[170px] flex justify-start gap-x-3">
+						<img src={userProfileImage} className="w-[20px] h-[20px]" alt="User Profile" />
+						<p className="text-bold">{userName}</p>
+					</div>
 
-					<option onClick={handleLogout} className="text-red-600 text-bold">
+					<button onClick={handleLogout} className="text-white bg-red-900 p-1 text-bold">
 						Logout
-					</option>
-				</select>
+					</button>
+				</div>
 			)}
 
 			{!isLoggedIn && (
