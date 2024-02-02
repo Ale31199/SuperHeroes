@@ -7,25 +7,28 @@ function Login() {
 	const [userName, setUserName] = useState('');
 	const [userProfileImage, setUserProfileImage] = useState('');
 
-	const handleLoginSuccess = (response) => {
+	const handleLoginSuccess = async (response) => {
 		console.log('Login success:', response);
+
 		const accessToken = response?.credential?.accessToken;
 
 		if (accessToken) {
-			axios
-				.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`)
-				.then((response) => {
-					const name = response.data.name;
-					const imageUrl = response.data.picture;
-					setUserName(name || '');
-					setUserProfileImage(imageUrl || '');
-				})
-				.catch((error) => {
-					console.error('Error fetching user info:', error);
-				});
-		}
+			try {
+				// Effettua una chiamata API a Google per ottenere le informazioni dell'utente
+				const userInfoResponse = await axios.get(
+					`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`
+				);
 
-		setLoggedIn(true);
+				const name = userInfoResponse.data.name;
+				const imageUrl = userInfoResponse.data.picture;
+
+				setUserName(name || '');
+				setUserProfileImage(imageUrl || '');
+				setLoggedIn(true);
+			} catch (error) {
+				console.error('Error fetching user info:', error);
+			}
+		}
 	};
 
 	const handleLoginError = (error) => {
