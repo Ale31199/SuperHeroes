@@ -22,7 +22,16 @@ function Login() {
 	};
 
 	const decodeJwt = (token) => {
-		const base64Url = token.split('.')[1];
+		if (!token) {
+			console.error('Token is undefined or null');
+			return null;
+		}
+		const parts = token.split('.');
+		if (parts.length !== 3) {
+			console.error('Invalid token format');
+			return null;
+		}
+		const base64Url = parts[1];
 		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
 		const jsonPayload = decodeURIComponent(
 			atob(base64)
