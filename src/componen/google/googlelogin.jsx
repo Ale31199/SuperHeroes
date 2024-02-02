@@ -4,6 +4,9 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 
+	const userName = response.profileObj.name;
+	const userProfileImage = response.profileObj.imageUrl;
+
 	const handleLoginSuccess = (response) => {
 		console.log('Login success:', response);
 		setLoggedIn(true);
@@ -18,21 +21,18 @@ function Login() {
 		googleLogout();
 	};
 
-	if (isLoggedIn) {
-		return (
-			<div>
-				<button onClick={logga()} className="p-3 rounded-lg bg-white text-bold">
+	return (
+		<div>
+			<select className="p-2 bg-white rounded-xl flex flex-row justify-between w-[200px] h-[35px]">
+				<img src={userProfileImage} className="w-[20px] h-[20px]" />
+				<p className="text-bold">{userName}</p>
+				<option onClick={logga} className="text-red-600 text-bold">
 					Logout
-				</button>
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} buttonText="Accedi con Google" />
-			</div>
-		);
-	}
+				</option>
+			</select>
+			<GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} buttonText="Accedi con Google" />
+		</div>
+	);
 }
 
 export default Login;
