@@ -13,18 +13,12 @@ function Login() {
 		console.log('Login error:', error);
 	};
 
-	const handleLogout = () => {
-		console.log('Logout');
-		setLoggedIn(false);
-		googleLogout();
-		// Altre azioni di logout personalizzate possono essere aggiunte qui
-	};
-
 	if (isLoggedIn) {
 		return (
 			<div>
-				<p>Utente loggato</p>
-				<GoogleLogin onSuccess={handleLogout} buttonText="Logout" />
+				<button onClick={googleLogout()} className="p-3 rounded-lg text-bold">
+					Logout
+				</button>
 			</div>
 		);
 	} else {
