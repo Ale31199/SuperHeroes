@@ -10,20 +10,15 @@ function Login() {
 
 	const handleLoginSuccess = async (response) => {
 		console.log('Login success:', response);
-
 		const accessToken = response?.credential?.accessToken;
-
 		setLoggedIn(true);
 		if (accessToken) {
 			try {
-				// Fetch user info from Google Login
-				const name = response.profileObj.getName();
-				const imageUrl = response.profileObj.imageUrl;
+				const name = response.profileObj?.name || response.profileObj?.givenName || '';
+				const imageUrl = response.profileObj?.imageUrl || '';
+				setUserName(name);
+				setUserProfileImage(imageUrl);
 
-				setUserName(name || '');
-				setUserProfileImage(imageUrl || '');
-
-				// Fetch Google Analytics account information
 				const analyticsAccountResponse = await axios.get(
 					'https://www.googleapis.com/analytics/v3/management/accounts/~all',
 					{
@@ -33,9 +28,8 @@ function Login() {
 					}
 				);
 
-				// Assuming you want the name of the first account in the list
-				const firstAnalyticsAccountName = analyticsAccountResponse.data.items[0].name;
-				setAnalyticsAccountName(firstAnalyticsAccountName || '');
+				const firstAnalyticsAccountName = analyticsAccountResponse.data.items[0]?.name || '';
+				setAnalyticsAccountName(firstAnalyticsAccountName);
 			} catch (error) {
 				console.error('Error fetching user or analytics info:', error);
 			}
