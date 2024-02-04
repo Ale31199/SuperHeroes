@@ -1,28 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 
-	const handleLoginSuccess = async (response) => {
+	const handleLoginSuccess = (response) => {
 		console.log('Login success:', response);
-		const accessToken = '854917209460-shi180ck4md6fp9f2picmevsooarjm8t.apps.googleusercontent.com';
 		setLoggedIn(true);
-		if (accessToken) {
-			try {
-				const response = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
-
-				setUserInfo(response.data);
-			} catch (error) {
-				console.error('Error fetching user or analytics info:', error);
-			}
-		}
+		const profile = response.getBasicProfile();
+		setUserInfo({
+			id: profile.getId(),
+			name: profile.getName(),
+			imageUrl: profile.getImageUrl(),
+			email: profile.getEmail(),
+		});
 	};
 
 	const handleLoginError = (error) => {
@@ -39,8 +31,8 @@ function Login() {
 			{isLoggedIn && (
 				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
 					<div className="w-[170px] flex justify-start gap-x-3">
-						<img className="w-[20px] h-[20px]" alt="User Profile" />
-						<p className="text-bold">{userInfo}</p>
+						<img src={userInfo.imageUrl} className="w-[20px] h-[20px]" alt="User Profile" />
+						<p className="text-bold">{userInfo.name}</p>
 					</div>
 					<button onClick={handleLogout} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
 						Logout
@@ -50,7 +42,7 @@ function Login() {
 
 			{!isLoggedIn && (
 				<GoogleLogin
-					scope="https://www.googleapis.com/auth/userinfo.profile"
+					className="g-signin2"
 					onSuccess={handleLoginSuccess}
 					onError={handleLoginError}
 					buttonText="Accedi con Google"
