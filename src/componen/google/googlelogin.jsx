@@ -4,32 +4,21 @@ import axios from 'axios';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [userName, setUserName] = useState('');
-	const [userProfileImage, setUserProfileImage] = useState('');
-	const [analyticsAccountName, setAnalyticsAccountName] = useState('');
+	const [userInfo, setUserInfo] = useState(null);
 
 	const handleLoginSuccess = async (response) => {
 		console.log('Login success:', response);
-		const accessToken = response?.credential?.accessToken;
+		const accessToken = '854917209460-shi180ck4md6fp9f2picmevsooarjm8t.apps.googleusercontent.com';
 		setLoggedIn(true);
 		if (accessToken) {
 			try {
-				const name = response.profileObj?.name || response.profileObj?.givenName || '';
-				const imageUrl = response.profileObj?.imageUrl || '';
-				setUserName(name);
-				setUserProfileImage(imageUrl);
+				const response = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				});
 
-				const analyticsAccountResponse = await axios.get(
-					'https://www.googleapis.com/analytics/v3/management/accounts/~all',
-					{
-						headers: {
-							Authorization: `Bearer ${accessToken}`,
-						},
-					}
-				);
-
-				const firstAnalyticsAccountName = analyticsAccountResponse.data.items[0]?.name || '';
-				setAnalyticsAccountName(firstAnalyticsAccountName);
+				setUserInfo(response.data);
 			} catch (error) {
 				console.error('Error fetching user or analytics info:', error);
 			}
@@ -43,10 +32,6 @@ function Login() {
 	const handleLogout = () => {
 		console.log('Logout');
 		setLoggedIn(false);
-		setUserName('');
-		setUserProfileImage('');
-		setAnalyticsAccountName('');
-		// Other custom logout actions can be added here
 	};
 
 	return (
@@ -54,11 +39,8 @@ function Login() {
 			{isLoggedIn && (
 				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
 					<div className="w-[170px] flex justify-start gap-x-3">
-						<img src={userProfileImage} className="w-[20px] h-[20px]" alt="User Profile" />
-						<p className="text-bold">{userName}</p>
-					</div>
-					<div>
-						<p className="text-bold">{analyticsAccountName}</p>
+						<img src={userInfo.picture} className="w-[20px] h-[20px]" alt="User Profile" />
+						<p className="text-bold">{userInfo.name}</p>
 					</div>
 					<button onClick={handleLogout} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
 						Logout
