@@ -47,9 +47,14 @@ function Login() {
 
 	const handleSignInClick = () => {
 		const auth2 = window.gapi.auth2.getAuthInstance();
-		auth2.signIn().then((googleUser) => {
-			handleSignIn(googleUser);
-		});
+		auth2.signIn().then(
+			(googleUser) => {
+				handleSignIn(googleUser);
+			},
+			(error) => {
+				console.error('Error during sign-in:', error);
+			}
+		);
 	};
 
 	const handleSignOutClick = () => {
@@ -75,7 +80,6 @@ function Login() {
 			)}
 
 			<script src="https://apis.google.com/js/platform.js" async defer></script>
-			<script dangerouslySetInnerHTML={{ __html: 'initGoogleSignIn();' }} />
 		</div>
 	);
 }
