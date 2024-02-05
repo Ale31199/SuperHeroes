@@ -1,6 +1,7 @@
 import sfondo from '/src/img/sfondo2.jpg';
 import { useState } from 'react';
 import video from '/src/img/videotest.mp4';
+import Goo from '/src/componen/google/googlelogin';
 
 const body = () => {
 	return (
@@ -19,7 +20,7 @@ const body = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-teal-400 font-bold text-start relative ">{Goo.userInfo.name}</p>
 						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
 							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia
 						</p>
