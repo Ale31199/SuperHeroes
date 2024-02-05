@@ -45,7 +45,7 @@ function Login() {
 
 	const handleLogout = () => {
 		console.log('Logout');
-
+		location.reload();
 		setLoggedIn(false);
 		localStorage.setItem('isLoggedIn', JSON.stringify(false));
 		localStorage.removeItem('userInfo');
