@@ -6,28 +6,10 @@ function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 
-	useEffect(() => {
-		const salvaLogin = localStorage.getItem('isLoggedIn');
-		if (salvaLogin) {
-			setLoggedIn(JSON.parse(salvaLogin));
-		}
-		const salvaNome = localStorage.getItem('userInfo.name');
-		if (salvaNome) {
-			setUserInfo(JSON.parse(salvaNome));
-		}
-		const salvaImage = localStorage.getItem('userInfo.imageUrl');
-		if (salvaImage) {
-			setUserInfo(JSON.parse(salvaImage));
-		}
-	}, []);
-
 	const handleLoginSuccess = (response) => {
 		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
 		setLoggedIn(true);
-		localStorage.setItem('isLoggedIn', JSON.stringify(true));
-		localStorage.setItem('userInfo.name', JSON.stringify(userInfo.name));
-		localStorage.setItem('userInfo.imageUrl', JSON.stringify(userInfo.imageUrl));
 
 		setUserInfo({
 			name: deco.name,
@@ -42,7 +24,6 @@ function Login() {
 	const handleLogout = () => {
 		console.log('Logout');
 		setLoggedIn(false);
-		localStorage.setItem('isLoggedIn', JSON.stringify(false));
 	};
 
 	return (
