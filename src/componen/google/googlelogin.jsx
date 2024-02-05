@@ -7,7 +7,7 @@ function Login() {
 	const [userInfo, setUserInfo] = useState(null);
 
 	const handleLoginSuccess = (response) => {
-		const deco = jwtDecode(response);
+		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
 		setLoggedIn(true);
 
