@@ -1,9 +1,23 @@
 import sfondo from '/src/img/sfondo2.jpg';
-import { useState } from 'react';
+import React from 'react'; { useState, useEffect } from 'react';
 import video from '/src/img/videotest.mp4';
-import Goo from '/src/componen/google/googlelogin';
 
 const body = () => {
+	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [userInfo, setUserInfo] = useState({});
+
+	useEffect(() => {
+		const savedLogin = localStorage.getItem('isLoggedIn');
+		if (savedLogin) {
+			setLoggedIn(JSON.parse(savedLogin));
+		}
+
+		const savedUserInfo = localStorage.getItem('userInfo');
+		if (savedUserInfo) {
+			setUserInfo(JSON.parse(savedUserInfo));
+		}
+	}, []);
+
 	return (
 		<>
 			<div className="fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full ">
@@ -20,7 +34,7 @@ const body = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-						<p className="text-teal-400 font-bold text-start relative ">{Goo.userInfo.name}</p>
+						<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
 						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
 							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia
 						</p>
@@ -33,7 +47,7 @@ const body = () => {
 
 				<div className=" bg-slate-900 cursor-pointer  w-[95%] rounded-xl h-fit transition-all duration-500">
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
 						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
 							Bello sto sito ci sto perdendo le oreeee hahahhaah
 						</p>
@@ -48,7 +62,7 @@ const body = () => {
 						<video src={video} controls className="object-cover h-[350px] rounded-xl " />
 					</div>
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-						<p className="text-teal-400 font-bold text-start relative ">LunarXyle</p>
+						<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
 						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">Welcome To The DCC</p>
 					</div>
 					<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
