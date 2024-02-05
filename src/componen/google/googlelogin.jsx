@@ -30,9 +30,9 @@ function Login() {
 	return (
 		<div>
 			{isLoggedIn && (
-				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
+				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-fit h-[35px]">
 					<div className="w-[170px] flex justify-start gap-x-3">
-						<img src={userInfo.imageUrl} className="w-[20px] h-[20px]" alt="User Profile" />
+						<img src={userInfo.imageUrl} className="w-[30px] h-[30px]" alt="User Profile" />
 						<p className="text-bold">{userInfo.name}</p>
 					</div>
 					<button onClick={handleLogout} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
