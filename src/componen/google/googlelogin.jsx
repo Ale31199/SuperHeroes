@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
@@ -6,15 +6,18 @@ function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 
-	const handleLoginSuccess = (response) => {
+	useEffect(() => {
 		const salvaLogin = localStorage.getItem('isLoggedIn');
 		if (salvaLogin) {
 			setLoggedIn(JSON.parse(salvaLogin));
 		}
+	}, []);
+
+	const handleLoginSuccess = (response) => {
 		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
 		setLoggedIn(true);
-		setLoggedIn(localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn)));
+		localStorage.setItem('isLoggedIn', JSON.stringify(true));
 
 		// Accedi direttamente alle informazioni dell'utente dalla risposta
 		setUserInfo({
@@ -30,7 +33,7 @@ function Login() {
 	const handleLogout = () => {
 		console.log('Logout');
 		setLoggedIn(false);
-		setLoggedIn(localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn)));
+		localStorage.setItem('isLoggedIn', JSON.stringify(false));
 	};
 
 	return (
