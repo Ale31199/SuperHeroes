@@ -13,17 +13,7 @@ function Login() {
 			email: profile.getEmail(),
 		});
 		setLoggedIn(true);
-	};
 
-	const handleSignOut = () => {
-		const auth2 = window.gapi.auth2.getAuthInstance();
-		auth2.signOut().then(() => {
-			console.log('User signed out.');
-			setLoggedIn(false);
-		});
-	};
-
-	const initGoogleSignIn = () => {
 		window.gapi.load('auth2', () => {
 			window.gapi.auth2
 				.init({
@@ -31,6 +21,9 @@ function Login() {
 				})
 				.then(() => {
 					const auth2 = window.gapi.auth2.getAuthInstance();
+
+					// Aggiungi il pulsante Accedi con Google
+					auth2.attachClickHandler(document.getElementById('googleSignInBtn'), {}, handleSignIn);
 
 					// Check if the user is already signed in
 					if (auth2.isSignedIn.get()) {
@@ -41,45 +34,36 @@ function Login() {
 		});
 	};
 
-	useEffect(() => {
-		initGoogleSignIn();
-	}, []);
-
-	const handleSignInClick = () => {
+	const handleSignOut = () => {
 		const auth2 = window.gapi.auth2.getAuthInstance();
-		auth2.signIn().then(
-			(googleUser) => {
-				handleSignIn(googleUser);
-			},
-			(error) => {
-				console.error('Error during sign-in:', error);
-			}
-		);
-	};
-
-	const handleSignOutClick = () => {
-		handleSignOut();
+		auth2.signOut().then(() => {
+			console.log('User signed out.');
+			setLoggedIn(false);
+		});
 	};
 
 	return (
 		<div>
+			<script src="https://apis.google.com/js/platform.js" async defer></script>
 			{isLoggedIn ? (
 				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
 					<div className="w-[170px] flex justify-start gap-x-3">
 						<img src={userInfo.imageUrl} className="w-[20px] h-[20px]" alt="User Profile" />
 						<p className="text-bold">{userInfo.name}</p>
 					</div>
-					<button onClick={handleSignOutClick} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
+					<button onClick={handleSignOut} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
 						Logout
 					</button>
 				</div>
 			) : (
-				<button onClick={handleSignInClick} className="text-white bg-blue-500 text-sm p-2 rounded-xl text-bold">
+				<button
+					data-onsuccess={handleSignIn}
+					id="googleSignInBtn"
+					className="text-white bg-blue-500 text-sm p-2 rounded-xl text-bold"
+				>
 					Accedi con Google
 				</button>
 			)}
-
-			<script src="https://apis.google.com/js/platform.js" async defer></script>
 		</div>
 	);
 }
