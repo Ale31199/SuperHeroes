@@ -11,6 +11,14 @@ function Login() {
 		if (salvaLogin) {
 			setLoggedIn(JSON.parse(salvaLogin));
 		}
+		const salvaNome = localStorage.getItem('userInfo.name');
+		if (salvaNome) {
+			setUserInfo(JSON.parse(salvaNome));
+		}
+		const salvaImage = localStorage.getItem('userInfo.imageUrl');
+		if (salvaImage) {
+			setUserInfo(JSON.parse(salvaImage));
+		}
 	}, []);
 
 	const handleLoginSuccess = (response) => {
@@ -18,8 +26,9 @@ function Login() {
 		console.log('Login success:', deco);
 		setLoggedIn(true);
 		localStorage.setItem('isLoggedIn', JSON.stringify(true));
+		localStorage.setItem('userInfo.name', JSON.stringify(userInfo.name));
+		localStorage.setItem('userInfo.imageUrl', JSON.stringify(userInfo.imageUrl));
 
-		// Accedi direttamente alle informazioni dell'utente dalla risposta
 		setUserInfo({
 			name: deco.name,
 			imageUrl: deco.picture,
