@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 
 	const handleLoginSuccess = (response) => {
-		console.log('Login success:', response);
+		console.log('Login success:', deco);
+		const deco = jwtDecode(response);
 		setLoggedIn(true);
 
 		// Accedi direttamente alle informazioni dell'utente dalla risposta
 		setUserInfo({
-			id: response.googleId,
-			name: response.profileObj.name,
-			imageUrl: response.profileObj.imageUrl,
-			email: response.profileObj.email,
+			name: response.name,
+			imageUrl: response.picture,
 		});
 	};
 
@@ -42,12 +42,7 @@ function Login() {
 			)}
 
 			{!isLoggedIn && (
-				<GoogleLogin
-					className="g-signin2"
-					onSuccess={handleLoginSuccess}
-					onError={handleLoginError}
-					buttonText="Accedi con Google"
-				/>
+				<GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} buttonText="Accedi con Google" />
 			)}
 		</div>
 	);
