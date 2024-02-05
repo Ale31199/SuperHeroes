@@ -36,6 +36,7 @@ function Login() {
 				imageUrl: deco.picture,
 			})
 		);
+		location.reload();
 	};
 
 	const handleLoginError = (error) => {
