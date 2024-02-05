@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -13,30 +14,10 @@ function Login() {
 			email: profile.getEmail(),
 		});
 		setLoggedIn(true);
-
-		window.gapi.load('auth2', () => {
-			window.gapi.auth2
-				.init({
-					client_id: '854917209460-shi180ck4md6fp9f2picmevsooarjm8t.apps.googleusercontent.com',
-				})
-				.then(() => {
-					const auth2 = window.gapi.auth2.getAuthInstance();
-
-					// Aggiungi il pulsante Accedi con Google
-					auth2.attachClickHandler(document.getElementById('googleSignInBtn'), {}, handleSignIn);
-
-					// Check if the user is already signed in
-					if (auth2.isSignedIn.get()) {
-						const googleUser = auth2.currentUser.get();
-						handleSignIn(googleUser);
-					}
-				});
-		});
 	};
 
-	const handleSignOut = () => {
-		const auth2 = window.gapi.auth2.getAuthInstance();
-		auth2.signOut().then(() => {
+	const handleSignOut = (googleUser) => {
+		googleUser.signOut().then(() => {
 			console.log('User signed out.');
 			setLoggedIn(false);
 		});
@@ -44,7 +25,6 @@ function Login() {
 
 	return (
 		<div>
-			<script src="https://apis.google.com/js/platform.js" async defer></script>
 			{isLoggedIn ? (
 				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-[200px] h-[35px]">
 					<div className="w-[170px] flex justify-start gap-x-3">
@@ -56,13 +36,14 @@ function Login() {
 					</button>
 				</div>
 			) : (
-				<button
-					data-onsuccess={handleSignIn}
-					id="googleSignInBtn"
-					className="text-white bg-blue-500 text-sm p-2 rounded-xl text-bold"
-				>
-					Accedi con Google
-				</button>
+				<GoogleLogin
+					clientId="854917209460-shi180ck4md6fp9f2picmevsooarjm8t.apps.googleusercontent.com"
+					scope="profile email"
+					onSuccess={handleSignIn}
+					buttonProps={{
+						className: 'text-white bg-blue-500 text-sm p-2 rounded-xl text-bold',
+					}}
+				/>
 			)}
 		</div>
 	);
