@@ -31,13 +31,15 @@ const boody = () => {
 
 			{isLoggedIn && (
 				<div
-					className={`text-white flex-col w-[100%] flex absolute top-[130px] items-center justify-center text-5xl ${
+					className={`text-white flex-col w-[100%] flex absolute top-[100px] items-center justify-center text-5xl ${
 						isLoggedIn ? 'visible' : 'invisible'
 					}`}
 				>
 					Buongiorno
-					<img src={userInfo.imageUrl} className="w-[80px] h-[80px] rounded-full mt-5 mb-3" />
-					<p className="text-white font-bold text-sm md:text-base">{userInfo.name}</p>
+					<div className="mt-5 flex flex-row">
+						<img src={userInfo.imageUrl} className="w-[50px] h-[50px] rounded-full ml-3" />
+						<p className="text-white font-bold text-sm md:text-base">{userInfo.name}</p>
+					</div>
 				</div>
 			)}
 
