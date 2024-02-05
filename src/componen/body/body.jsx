@@ -36,7 +36,7 @@ const body = () => {
 					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
 						<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
 						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
-							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia
+							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia!
 						</p>
 						<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 							<button className="hover:text-teal-400">Like 12</button>
