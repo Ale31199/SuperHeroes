@@ -13,8 +13,8 @@ function Login() {
 
 		// Accedi direttamente alle informazioni dell'utente dalla risposta
 		setUserInfo({
-			name: response.credential.name,
-			imageUrl: response.credential.picture,
+			name: deco.name,
+			imageUrl: deco.picture,
 		});
 	};
 
