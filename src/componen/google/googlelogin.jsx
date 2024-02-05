@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [userInfo, setUserInfo] = useState(null);
+	const [userInfo, setUserInfo] = useState({});
 
 	useEffect(() => {
 		const salvaLogin = localStorage.getItem('isLoggedIn');
@@ -21,7 +21,7 @@ function Login() {
 		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
 		setLoggedIn(true);
-		localStorage.setItem('isLoggedIn', JSON.stringify(true));
+		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
 		localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
 		setUserInfo({
@@ -37,7 +37,7 @@ function Login() {
 	const handleLogout = () => {
 		console.log('Logout');
 		setLoggedIn(false);
-		localStorage.setItem('isLoggedIn', JSON.stringify(false));
+		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
 	};
 
 	return (
