@@ -29,27 +29,27 @@ const boody = () => {
 				<img src={sfondo} className="opacity-30 blur-[2px] object-cover md:scale-125 transition-all duration-500 " />
 			</div>
 
-			{isLoggedIn && (
+			{!isLoggedIn && (
 				<div
 					className={`text-white flex-col w-[100%] flex absolute top-[130px] items-center justify-center text-5xl ${
 						isLoggedIn ? 'visible' : 'invisible'
 					}`}
 				>
 					Buongiorno
-					<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-2 mt-3" />
+					<img src={userInfo.imageUrl} className="w-[80px] h-[80px] rounded-full mt-5 mb-3" />
 					<p className="text-white font-bold text-sm md:text-base">{userInfo.name}</p>
 				</div>
 			)}
 
 			{!isLoggedIn && (
 				<div
-					className={`bg-slate-900 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 md:w-[85%] flex justify-center items-center transition-all duration-500 ${
+					className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 md:w-[85%] flex justify-center items-center transition-all duration-500 ${
 						isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 					}`}
 				>
 					<input
 						placeholder="Search something..."
-						className="p-3 w-[50%] h-[50px] outline-none text-white bg-neutral-800 rounded-xl"
+						className="p-3 w-[50%] h-[50px] outline-none text-white bg-neutral-950 rounded-xl"
 					/>
 					<button
 						disabled={!isLoggedIn}
@@ -67,15 +67,15 @@ const boody = () => {
 
 			{!isLoggedIn && (
 				<div
-					className={`bg-black bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
+					className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
 						isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 					}`}
 				>
-					<div className=" bg-slate-900 cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500">
+					<div className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500">
 						<div className="w-[100%] h-full overflow-hidden justify-center">
 							<img
 								src={sfondo}
-								className="object-cover w-[100%] h-[350px] rounded-xl hover:scale-125 transition-all duration-500"
+								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
 							/>
 						</div>
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
@@ -83,8 +83,10 @@ const boody = () => {
 							<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
 								I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia!
 							</p>
-							<div className="text-violet-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
-								<button className="hover:text-teal-400">Like 12</button>
+							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+								<button className="hover:text-teal-400 flex flex-row items-center">
+									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " /> 12
+								</button>
 								<button className="hover:text-teal-400">Comments 345</button>
 							</div>
 						</div>
