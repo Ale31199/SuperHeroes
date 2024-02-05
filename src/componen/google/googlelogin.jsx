@@ -14,7 +14,7 @@ function Login() {
 		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
 		setLoggedIn(true);
-		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+		setLoggedIn(localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn)));
 
 		// Accedi direttamente alle informazioni dell'utente dalla risposta
 		setUserInfo({
@@ -30,18 +30,21 @@ function Login() {
 	const handleLogout = () => {
 		console.log('Logout');
 		setLoggedIn(false);
-		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+		setLoggedIn(localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn)));
 	};
 
 	return (
 		<div>
 			{isLoggedIn && (
-				<div className="p-2 bg-white rounded-xl flex flex-row justify-between items-center w-fit h-[35px]">
-					<div className="w-[170px] flex justify-start gap-x-3">
+				<div className="p-2 bg-slate-800 border-2 border-white rounded-xl flex flex-row justify-between items-center w-fit h-[35px]">
+					<div className="w-[170px] flex justify-start items-center gap-x-3">
 						<img src={userInfo.imageUrl} className="w-[30px] h-[30px] rounded-full" alt="User Profile" />
-						<p className="font-bold text-center">{userInfo.name}</p>
+						<p className="font-bold text-white text-sm text-center">{userInfo.name}</p>
 					</div>
-					<button onClick={handleLogout} className="text-white bg-red-900 text-sm p-1 rounded-xl text-bold">
+					<button
+						onClick={handleLogout}
+						className="text-white bg-red-900 hover:bg-orange-800 text-sm p-1 rounded-xl text-bold"
+					>
 						Logout
 					</button>
 				</div>
