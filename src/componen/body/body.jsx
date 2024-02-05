@@ -32,7 +32,7 @@ const boody = () => {
 			{!isLoggedIn && (
 				<div
 					className={`text-white flex-col w-[100%] absolute top-[130px] items-center justify-center text-5xl ${
-						isLoggedIn ? 'flex' : 'flex'
+						isLoggedIn ? 'flex' : 'hidden'
 					}`}
 				>
 					Buongiorno
