@@ -7,8 +7,8 @@ function Login() {
 	const [userInfo, setUserInfo] = useState(null);
 
 	const handleLoginSuccess = (response) => {
-		console.log('Login success:', deco);
 		const deco = jwtDecode(response);
+		console.log('Login success:', deco);
 		setLoggedIn(true);
 
 		// Accedi direttamente alle informazioni dell'utente dalla risposta
