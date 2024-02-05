@@ -7,7 +7,7 @@ import Body from './componen/body/body';
 const App = () => {
 	return (
 		<>
-			<div className="flex justify-center w-[100%] h-[1200px]">
+			<div className="flex justify-center w-[100%] h-fit">
 				<Body />
 				<Header />
 			</div>
