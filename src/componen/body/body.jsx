@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import sfondo from '/src/img/sfondo2.jpg';
-import React from 'react'; { useState, useEffect } from 'react';
 import video from '/src/img/videotest.mp4';
 
-const body = () => {
+const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
 
@@ -75,4 +75,4 @@ const body = () => {
 	);
 };
 
-export default body;
+export default boody;
