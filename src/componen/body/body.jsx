@@ -36,7 +36,7 @@ const boody = () => {
 					}`}
 				>
 					Buongiorno
-					<div className="mt-5 flex flex-row items-center gap-y-1">
+					<div className="mt-5 flex flex-row items-center gap-x-1">
 						<img src={userInfo.imageUrl} className="w-[50px] h-[50px] rounded-full ml-3" />
 						<p className="text-white font-bold text-base md:text-xl">{userInfo.name}</p>
 					</div>
