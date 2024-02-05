@@ -7,7 +7,7 @@ import comment from '/src/img/editing.png';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [posta, setPosta] = useState(true);
+	const [posta, setPosta] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
 	const [feed, setFeed] = useState([]);
 	const [post, setPost] = useState({});
