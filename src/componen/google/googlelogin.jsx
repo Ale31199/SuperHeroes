@@ -7,22 +7,39 @@ function Login() {
 	const [userInfo, setUserInfo] = useState({});
 
 	useEffect(() => {
-		const salvaLogin = localStorage.getItem('isLoggedIn');
-		if (salvaLogin) {
-			setLoggedIn(JSON.parse(salvaLogin));
+		// Recupera lo stato di accesso salvato nel localStorage durante il montaggio del componente
+		const savedLogin = localStorage.getItem('isLoggedIn');
+		if (savedLogin) {
+			setLoggedIn(JSON.parse(savedLogin));
+		}
+
+		// Recupera le informazioni dell'utente dal localStorage
+		const savedUserInfo = localStorage.getItem('userInfo');
+		if (savedUserInfo) {
+			setUserInfo(JSON.parse(savedUserInfo));
 		}
 	}, []);
 
 	const handleLoginSuccess = (response) => {
 		const deco = jwtDecode(response?.credential);
 		console.log('Login success:', deco);
-		setLoggedIn(true);
-		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
 
+		// Imposta lo stato dell'utente con le nuove informazioni
 		setUserInfo({
 			name: deco.name,
 			imageUrl: deco.picture,
 		});
+
+		// Aggiorna lo stato di accesso e salva nel localStorage
+		setLoggedIn(true);
+		localStorage.setItem('isLoggedIn', JSON.stringify(true));
+		localStorage.setItem(
+			'userInfo',
+			JSON.stringify({
+				name: deco.name,
+				imageUrl: deco.picture,
+			})
+		);
 	};
 
 	const handleLoginError = (error) => {
@@ -31,8 +48,11 @@ function Login() {
 
 	const handleLogout = () => {
 		console.log('Logout');
+
+		// Aggiorna lo stato di accesso e salva nel localStorage
 		setLoggedIn(false);
-		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+		localStorage.setItem('isLoggedIn', JSON.stringify(false));
+		localStorage.removeItem('userInfo');
 	};
 
 	return (
