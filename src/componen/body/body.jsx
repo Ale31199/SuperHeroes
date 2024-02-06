@@ -34,7 +34,7 @@ const boody = () => {
 		if (!posta) {
 			setPosta(true);
 			setPost({
-				image: '',
+				image: post.image,
 				descr: '',
 				likes: 0,
 				comments: 0,
@@ -110,7 +110,7 @@ const boody = () => {
 					} ${posta ? 'hidden' : 'flex'}`}
 				>
 					Buongiorno
-					<div className="mt-5 flex flex-row items-center gap-x-1">
+					<div className="mt-5 flex flex-row items-center gap-x-3">
 						<img src={userInfo.imageUrl} className="w-[50px] h-[50px] rounded-full ml-5" />
 						<p className="text-white font-bold text-base md:text-xl">{userInfo.name}</p>
 					</div>
