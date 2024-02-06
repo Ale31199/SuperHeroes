@@ -14,7 +14,7 @@ const boody = () => {
 	const [feed, setFeed] = useState([]);
 	const [descr, setDescr] = useState('');
 	const [post, setPost] = useState({
-		image: URL.createObjectURL(selectedFile),
+		image: null,
 		descr: '',
 		likes: 0,
 		comments: 0,
