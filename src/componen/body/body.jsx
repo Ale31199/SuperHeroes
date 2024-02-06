@@ -55,15 +55,16 @@ const boody = () => {
 		}
 	};
 
-	/*
-	const createPost = () => {
-		setPost({
-     file: ,
-		desc: ''
-		}
-		)
+	const scriviDesc = (event) => {
+		setDescr(event.target.value);
 	};
-*/
+
+	const createPost = () => {
+		setFeed([...feed, post]);
+		setPosta(false);
+		location.reload();
+	};
+
 	return (
 		<>
 			<div className={`fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full`}>
@@ -76,7 +77,7 @@ const boody = () => {
 				<div
 					className={`text-white flex-col w-[100%] absolute top-[100px] items-center justify-center text-5xl ${
 						isLoggedIn ? 'flex' : 'hidden'
-					}`}
+					} ${posta ? 'hidden' : 'flex'}`}
 				>
 					Buongiorno
 					<div className="mt-5 flex flex-row items-center gap-x-1">
@@ -113,6 +114,8 @@ const boody = () => {
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
 						<textarea
 							placeholder="Write a description"
+							value={descr}
+							onChange={scriviDesc}
 							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
 						/>
 					</div>
@@ -126,7 +129,7 @@ const boody = () => {
 							<input type="file" ref={fileInput} className="hidden" onChange={cambiaFile} />
 						</button>
 						<button
-							onClick={apriPost}
+							onClick={createPost}
 							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-700 rounded-xl"
 						>
 							Post it!
@@ -143,9 +146,9 @@ const boody = () => {
 			</div>
 
 			<div
-				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 md:w-[85%] flex justify-center items-center transition-all duration-500 ${
+				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 md:w-[85%] justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
-				} ${posta ? 'invisible' : 'visible'}`}
+				} ${posta ? 'hidden' : 'flex'}`}
 			>
 				<input
 					placeholder="Search something..."
@@ -168,31 +171,36 @@ const boody = () => {
 			</div>
 
 			<div
-				className={`bg-neutral-900 visible border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
+				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
-				} ${posta ? 'invisible' : 'visible'}`}
+				} ${posta ? 'hidden' : 'grid'}`}
 			>
-				<div className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500">
-					<div className="w-[100%] h-full overflow-hidden justify-center">
-						<video className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500 hidden" />
-						<img
-							src={sfondo}
-							className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
-						/>
-					</div>
-					<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-						<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
-						<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
-							I supereroi sono fichissimi guardate! Ho fatto questa fan art per tutti voi spero vi piaccia!
-						</p>
-						<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
-							<button className="hover:text-teal-400 flex flex-row items-center">
-								<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " /> 12
-							</button>
-							<button className="hover:text-teal-400">Comments 345</button>
+				{feed.map((item, index) => {
+					<div
+						key={index}
+						className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
+					>
+						<div className="w-[100%] h-full overflow-hidden justify-center">
+							<video className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500 hidden" />
+							<img
+								src={item.post.image}
+								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+							/>
 						</div>
-					</div>
-				</div>
+						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
+							<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
+							<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
+								{item.post.descr}
+							</p>
+							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+								<button className="hover:text-teal-400 flex flex-row items-center">
+									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " /> {item.post.likes}
+								</button>
+								<button className="hover:text-teal-400">Comments {item.post.comments}</button>
+							</div>
+						</div>
+					</div>;
+				})}
 			</div>
 		</>
 	);
