@@ -111,7 +111,7 @@ const boody = () => {
 				>
 					Buongiorno
 					<div className="mt-5 flex flex-row items-center gap-x-1">
-						<img src={userInfo.imageUrl} className="w-[50px] h-[50px] rounded-full ml-3" />
+						<img src={userInfo.imageUrl} className="w-[50px] h-[50px] rounded-full ml-5" />
 						<p className="text-white font-bold text-base md:text-xl">{userInfo.name}</p>
 					</div>
 				</div>
@@ -220,15 +220,15 @@ const boody = () => {
 						>
 							<img
 								src={item.image}
-								className="object-contain w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
 								alt="Uploaded Image"
 							/>
 						</div>
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
 							<div className="flex flex-row w-fit">
-								<img src={userInfo.imageUrl} className="w-[20px] h-[20px] rounded-full ml-3" />
-								<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
+								<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-5" />
+								<p className="text-teal-400 font-bold text-start relative text-lg md:text-xl">{userInfo.name}</p>
 							</div>
 							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%] object-cover">
 								{item.descr}
