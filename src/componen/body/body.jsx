@@ -211,34 +211,33 @@ const boody = () => {
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
-					<div
-						key={index}
-						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
-					>
+					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500">
 						<div
 							className={`w-[100%] h-full overflow-hidden justify-center ${item.image === null ? 'hidden' : 'flex'}`}
 						>
 							<img
 								src={item.image}
-								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+								className="object-cover w-[100%] h-[350px] rounded-t-xl cursor-pointer hover:scale-125 transition-all duration-500"
 								alt="Uploaded Image"
 							/>
 						</div>
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
 							<div className="flex flex-row gap-x-2 items-center w-[100%] justify-center">
-								<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-5" />
-								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl">{userInfo.name}</p>
+								<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-5 cursor-pointer" />
+								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
+									{userInfo.name}
+								</p>
 							</div>
-							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%] object-cover">
+							<p className="text-white font-bold text-start relative text-sm md:text-base w-[95%] object-cover cursor-default">
 								{item.descr}
 							</p>
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
-								<button className="hover:text-white flex flex-row items-center bg-gradient-to-t from-pink-900 to-violet-600 p-1 rounded-lg">
+								<button className="hover:to-blue-600 flex flex-row items-center bg-gradient-to-t from-pink-900 to-violet-600 p-1 rounded-lg cursor-pointer">
 									<img src={like} className="w-[30px] h-[30px] invert mr-2 " />
 									{item.likes}
 								</button>
-								<button className="hover:text-white bg-gradient-to-t from-teal-900 to-violet-600 p-1 rounded-lg ">
+								<button className="hover:to-blue-600 bg-gradient-to-t from-teal-900 to-violet-600 p-1 rounded-lg cursor-pointer ">
 									Comments {item.comments}
 								</button>
 							</div>
