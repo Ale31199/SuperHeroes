@@ -93,6 +93,7 @@ const boody = ({ firebaseApp }) => {
 			comments: 0,
 		});
 
+		location.reload();
 		setPosta(false);
 	};
 
