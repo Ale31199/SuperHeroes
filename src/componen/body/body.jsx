@@ -181,7 +181,6 @@ const boody = () => {
 						className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
 					>
 						<div className="w-[100%] h-full overflow-hidden justify-center">
-							<video className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500 hidden" />
 							<img
 								src={item.post.image}
 								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
