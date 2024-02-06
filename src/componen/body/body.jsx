@@ -102,7 +102,7 @@ const boody = ({ firebaseApp }) => {
 	};
 
 	const mettiLike = () => {
-		if (userInfo.name) {
+		if (liked && userInfo.name) {
 			setCount(1);
 			setLiked(true);
 		} else {
@@ -263,7 +263,7 @@ const boody = ({ firebaseApp }) => {
 							</p>
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button
-									onClick={mettiLike}
+									onClick={(event) => mettiLike(event.target.value)}
 									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  to-violet-600 p-1 rounded-lg cursor-pointer ${
 										liked ? 'from-black border-2 border-white' : 'from-pink-900'
 									}`}
