@@ -2,7 +2,7 @@ import '/src/App.css';
 import { useState } from 'react';
 import ita from '/src/italiano.json';
 import eng from '/src/inglese.json';
-import hc from '/src/img/SuperHeroes.png';
+import hc from '/src/img/LEVELG.png';
 import menu from '/src/img/pause.png';
 import Login from '/src/componen/google/googlelogin.jsx';
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useTransition } from 'react';
-import sfondo from '/src/img/sfondo2.jpg';
+import React, { useState, useEffect, useRef } from 'react';
+import sfondo from '/src/img/neon.jpg';
 import video from '/src/img/videotest.mp4';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
@@ -7,11 +7,18 @@ import comment from '/src/img/editing.png';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [posta, setPosta] = useState(false);
+	const [posta, setPosta] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
+	const [selectedFile, setSelectedFile] = useState(null);
+	const fileInput = useRef(null);
 	const [feed, setFeed] = useState([]);
-	const [post, setPost] = useState({});
 	const [descr, setDescr] = useState('');
+	const [post, setPost] = useState({
+		image: selectedFile,
+		descr: '',
+		likes: 0,
+		comments: 0,
+	});
 
 	useEffect(() => {
 		const savedLogin = localStorage.getItem('isLoggedIn');
@@ -33,6 +40,21 @@ const boody = () => {
 		}
 	};
 
+	const apriFile = () => {
+		fileInput.current.click();
+	};
+
+	const cambiaFile = (event) => {
+		const file = event.target.files[0];
+		setSelectedFile(file);
+
+		if (file) {
+			setPost({
+				image: URL.createObjectURL(file),
+			});
+		}
+	};
+
 	/*
 	const createPost = () => {
 		setPost({
@@ -47,13 +69,13 @@ const boody = () => {
 			<div className={`fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full`}>
 				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]"></p>
 				<p className="text-white absolute text-lg md:text-xl top-[200px]"></p>
-				<img src={sfondo} className="opacity-30 blur-[2px] object-cover md:scale-125 transition-all duration-500 " />
+				<img src={sfondo} className="opacity-50 blur-[2px] object-cover md:scale-125 transition-all duration-500 " />
 			</div>
 
 			{isLoggedIn && (
 				<div
-					className={`text-white flex-col w-[100%] flex absolute top-[100px] items-center justify-center text-5xl ${
-						isLoggedIn ? 'visible' : 'invisible'
+					className={`text-white flex-col w-[100%] absolute top-[100px] items-center justify-center text-5xl ${
+						isLoggedIn ? 'flex' : 'hidden'
 					}`}
 				>
 					Buongiorno
@@ -72,21 +94,36 @@ const boody = () => {
 				<div
 					className={`bg-neutral-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
-					<div className="w-full h-[350px] overflow-hidden">
-						<img src={sfondo} className="w-full h-full object-cover rounded-t-xl scale-100" />
+					<div className="w-full h-[350px] rounded-t-xl overflow-hidden">
+						{selectedFile && (
+							<>
+								{selectedFile.type.startsWith('image') ? (
+									<img src={URL.createObjectURL(selectedFile)} alt="Uploaded Image" />
+								) : selectedFile.type.startsWith('video') ? (
+									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden">
+										<source src={URL.createObjectURL(selectedFile)} type="video/mp4" />
+										<source src={URL.createObjectURL(selectedFile)} type="video/mov" />
+										Your browser does not support the video tag.
+									</video>
+								) : null}
+							</>
+						)}
 					</div>
 
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
-						<input
-							type="text"
+						<textarea
 							placeholder="Write a description"
-							className="outline-none rounded-xl text-white bg-black text-base w-[95%] h-[170px] text-start  p-3"
+							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
 						/>
 					</div>
 
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[80px] overflow-hidden absolute bottom-[0%] rounded-b-xl bg-black justify-items-center grid grid-cols-3 items-center transition-all duration-500">
-						<button className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-700 rounded-xl">
-							Upload File
+						<button
+							onClick={apriFile}
+							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-700 rounded-xl"
+						>
+							Choose media
+							<input type="file" ref={fileInput} className="hidden" onChange={cambiaFile} />
 						</button>
 						<button
 							onClick={apriPost}
