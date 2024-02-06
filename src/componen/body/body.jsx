@@ -5,6 +5,7 @@ import like from '/src/img/heart.png';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [postsByUser, setPostsByUser] = useState({});
 	const [posta, setPosta] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -27,6 +28,10 @@ const boody = () => {
 
 		if (savedUserInfo) {
 			setUserInfo(JSON.parse(savedUserInfo));
+
+			setPostsByUser({
+				[JSON.parse(savedUserInfo).id]: [],
+			});
 		}
 	}, []);
 
@@ -69,7 +74,11 @@ const boody = () => {
 	};
 
 	const createPost = () => {
-		setFeed((prevFeed) => [...prevFeed, { ...post }]);
+		const currentUserId = userInfo.id;
+		const updatedPostsByUser = { ...postsByUser };
+		updatedPostsByUser[currentUserId].push({ ...post });
+		setPostsByUser(updatedPostsByUser);
+
 		setPost({
 			image: post.image,
 			descr: post.descr,
