@@ -35,12 +35,6 @@ const boody = () => {
 			setPosta(true);
 		} else {
 			setPosta(false);
-			setPost({
-				image: null,
-				descr: '',
-				likes: 0,
-				comments: 0,
-			});
 		}
 	};
 
