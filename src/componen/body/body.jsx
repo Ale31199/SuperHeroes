@@ -62,7 +62,12 @@ const boody = () => {
 	};
 
 	const scriviDesc = (event) => {
-		setDescr(event.target.value);
+		setPost({
+			image: null,
+			descr: event.target.value,
+			likes: 0,
+			comments: 0,
+		});
 	};
 
 	const createPost = () => {
@@ -120,7 +125,7 @@ const boody = () => {
 						<textarea
 							placeholder="Write a description"
 							maxLength={1000}
-							value={descr}
+							value={post.descr}
 							onChange={scriviDesc}
 							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
 						/>
