@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import sfondo from '/src/img/neon.jpg';
-import video from '/src/img/videotest.mp4';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
-import comment from '/src/img/editing.png';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -12,7 +10,6 @@ const boody = () => {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const fileInput = useRef(null);
 	const [feed, setFeed] = useState([]);
-	const [descr, setDescr] = useState('');
 	const [post, setPost] = useState({
 		image: null,
 		descr: '',
@@ -22,11 +19,12 @@ const boody = () => {
 
 	useEffect(() => {
 		const savedLogin = localStorage.getItem('isLoggedIn');
+		const savedUserInfo = localStorage.getItem('userInfo');
+
 		if (savedLogin) {
 			setLoggedIn(JSON.parse(savedLogin));
 		}
 
-		const savedUserInfo = localStorage.getItem('userInfo');
 		if (savedUserInfo) {
 			setUserInfo(JSON.parse(savedUserInfo));
 		}
@@ -55,26 +53,26 @@ const boody = () => {
 		setSelectedFile(file);
 
 		if (file) {
-			setPost({
-				image: URL.createObjectURL(selectedFile),
-			});
+			setPost((prevPost) => ({
+				...prevPost,
+				image: URL.createObjectURL(file),
+			}));
 		}
 	};
 
 	const scriviDesc = (event) => {
-		setPost({
-			image: post.image,
-			descr: event.target.value,
-			likes: 0,
-			comments: 0,
-		});
+		const newDescr = event.target.value;
+		setPost((prevPost) => ({
+			...prevPost,
+			descr: newDescr,
+		}));
 	};
 
 	const createPost = () => {
-		setFeed([...feed, post]);
+		setFeed((prevFeed) => [...prevFeed, { ...post }]);
 		setPost({
-			image: selectedFile,
-			descr: post.descr,
+			image: null,
+			descr: '',
 			likes: 0,
 			comments: 0,
 		});
