@@ -63,7 +63,7 @@ const boody = () => {
 
 	const scriviDesc = (event) => {
 		setPost({
-			image: null,
+			image: post.image,
 			descr: event.target.value,
 			likes: 0,
 			comments: 0,
