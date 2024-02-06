@@ -80,6 +80,7 @@ const boody = ({ firebaseApp }) => {
 			descr: post.descr,
 			likes: 0,
 			comments: 0,
+			id: userInfo.id,
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), newPost);
