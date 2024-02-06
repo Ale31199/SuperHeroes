@@ -80,8 +80,8 @@ const boody = () => {
 		setPostsByUser(updatedPostsByUser);
 
 		setPost({
-			image: post.image,
-			descr: post.descr,
+			image: null,
+			descr: '',
 			likes: 0,
 			comments: 0,
 		});
