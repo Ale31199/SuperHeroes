@@ -125,12 +125,12 @@ const boody = ({ firebaseApp }) => {
 
 			{isLoggedIn && (
 				<div
-					className={`text-white flex-col w-[100%] absolute top-[100px] items-center justify-center text-3xl ${
+					className={`text-white flex-col w-[100%] absolute top-[130px] items-center justify-center text-3xl ${
 						isLoggedIn ? 'flex' : 'hidden'
 					} ${posta ? 'hidden' : 'flex'}`}
 				>
 					Buongiorno
-					<div className="mt-5 flex flex-row items-center gap-x-3">
+					<div className="mt-3 flex flex-row items-center gap-x-3">
 						<p className="text-teal-400 font-bold text-3xl md:text-5xl">{userInfo.name}</p>
 					</div>
 				</div>
