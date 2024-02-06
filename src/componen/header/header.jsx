@@ -50,10 +50,10 @@ const Header = () => {
 					: ' h-[0px] invisible absolute top-[80px] w-[100%] '
 			}`}
 			>
-				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.home}</p>
-				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.profile}</p>
-				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.members}</p>
-				<p className="text-white cursor-pointer hover:text-orange-400 font-bold">{lang.menu.text}</p>
+				<p className="text-white cursor-pointer hover:text-violet-400 font-bold">{lang.menu.home}</p>
+				<p className="text-white cursor-pointer hover:text-violet-400 font-bold">{lang.menu.profile}</p>
+				<p className="text-white cursor-pointer hover:text-violet-400 font-bold">{lang.menu.members}</p>
+				<p className="text-white cursor-pointer hover:text-violet-400 font-bold">{lang.menu.text}</p>
 				<Login />
 				<select
 					onChange={(e) => cambiaLIngua(e.target.value)}

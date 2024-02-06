@@ -80,7 +80,23 @@ const boody = () => {
 			<div className={`fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full`}>
 				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]"></p>
 				<p className="text-white absolute text-lg md:text-xl top-[200px]"></p>
-				<img src={sfondo} className="opacity-50 blur-[2px] object-cover md:scale-125 transition-all duration-500 " />
+				<img src={sfondo} className="opacity-50 blur-[2px] object-cover md:scale-125 transition-all duration-500 eff" />
+				<style>
+					{`
+          @keyframes eff {
+            from {
+              transform: scale(1.2);
+            }
+            to {
+              transform: scale(1.3);
+            }
+          }
+
+          .eff {
+            animation: eff 10s infinite alternate-reverse;
+          }
+        `}
+				</style>
 			</div>
 
 			{isLoggedIn && (
@@ -192,19 +208,15 @@ const boody = () => {
 						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
 					>
 						<div className="w-[100%] h-full overflow-hidden justify-center">
-							{item.post && item.post.image && (
-								<img
-									src={item.post.image}
-									className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
-									alt="Uploaded Image"
-								/>
-							)}
+							<img
+								src={item.post.image}
+								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+								alt="Uploaded Image"
+							/>
 						</div>
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
 							<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
-							<p className="text-white font-bold text-start relative text-sm md:text-base w-[90%]">
-								{item.post && item.post.descr ? item.post.descr : ''}
-							</p>
+							<p className="text-white font-bold text-start relative text-sm md:text-base w-[90%]">{item.post.descr}</p>
 							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button className="hover:text-teal-400 flex flex-row items-center">
 									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " />{' '}
