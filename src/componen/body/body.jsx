@@ -72,6 +72,12 @@ const boody = () => {
 
 	const createPost = () => {
 		setFeed([...feed, post]);
+		setPost({
+			image: selectedFile,
+			descr: post.descr,
+			likes: 0,
+			comments: 0,
+		});
 		setPosta(false);
 	};
 
