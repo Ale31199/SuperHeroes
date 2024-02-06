@@ -219,7 +219,7 @@ const boody = () => {
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
-				{postsByUser[currentUserId].map((item, index) => (
+				{postsByUser.map((item, index) => (
 					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500">
 						<div
 							className={`w-[100%] h-full overflow-hidden justify-center ${item.image === null ? 'hidden' : 'flex'}`}
