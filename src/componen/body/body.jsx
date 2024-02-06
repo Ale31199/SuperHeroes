@@ -190,7 +190,7 @@ const boody = () => {
 					className="p-3 w-[50%] h-[50px] outline-none text-white bg-slate-950 rounded-xl"
 				/>
 				<button
-					disabled={isLoggedIn}
+					disabled={!isLoggedIn}
 					className={`flex flex-row w-[40%] items-center ${
 						isLoggedIn ? 'opacity-100' : 'opacity-35 cursor-not-allowed '
 					}`}
