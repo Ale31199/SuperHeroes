@@ -34,7 +34,7 @@ const boody = () => {
 		if (!posta) {
 			setPosta(true);
 			setPost({
-				image: null,
+				image: post.image,
 				descr: '',
 				likes: 0,
 				comments: 0,
@@ -69,7 +69,7 @@ const boody = () => {
 	};
 
 	const createPost = () => {
-		setFeed([...feed, post]);
+		setFeed((prevFeed) => [...prevFeed, { ...post }]);
 		setPost({
 			image: post.image,
 			descr: post.descr,
@@ -123,7 +123,7 @@ const boody = () => {
 				}`}
 			>
 				<div
-					className={`bg-neutral-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
+					className={`bg-slate-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
 					<div className="w-full h-fit rounded-t-xl overflow-hidden">
 						{selectedFile && (
@@ -181,16 +181,16 @@ const boody = () => {
 			</div>
 
 			<div
-				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 mb-4 md:w-[85%] justify-center items-center transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 mb-4 md:w-[85%] justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 				} ${posta ? 'hidden' : 'flex'}`}
 			>
 				<input
 					placeholder="Search something..."
-					className="p-3 w-[50%] h-[50px] outline-none text-white bg-neutral-950 rounded-xl"
+					className="p-3 w-[50%] h-[50px] outline-none text-white bg-slate-950 rounded-xl"
 				/>
 				<button
-					disabled={!isLoggedIn}
+					disabled={isLoggedIn}
 					className={`flex flex-row w-[40%] items-center ${
 						isLoggedIn ? 'opacity-100' : 'opacity-35 cursor-not-allowed '
 					}`}
@@ -206,34 +206,41 @@ const boody = () => {
 			</div>
 
 			<div
-				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-fit h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
 					<div
 						key={index}
-						className="bg-black cursor-pointer relative w-fit rounded-xl h-fit transition-all duration-500"
+						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
 					>
 						<div
-							className={`w-[100%] h-full overflow-hidden justify-center ${post.image === null ? 'hidden' : 'flex'}`}
+							className={`w-[100%] h-full overflow-hidden justify-center ${item.image === null ? 'hidden' : 'flex'}`}
 						>
 							<img
-								src={post.image}
+								src={item.image}
 								className="object-contain w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
 								alt="Uploaded Image"
 							/>
 						</div>
 
-						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
-							<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
-							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%]">{post.descr}</p>
-							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
-								<button className="hover:text-teal-400 flex flex-row items-center">
-									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " />
-									{post.likes}
+						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
+							<div className="flex flex-row w-fit">
+								<img src={userInfo.imageUrl} className="w-[20px] h-[20px] rounded-full ml-3" />
+								<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
+							</div>
+							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%] object-cover">
+								{item.descr}
+							</p>
+							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
+								<button className="hover:text-white flex flex-row items-center bg-gradient-to-t from-pink-900 to-violet-600 p-1 rounded-lg">
+									<img src={like} className="w-[30px] h-[30px] invert mr-2 " />
+									{item.likes}
 								</button>
-								<button className="hover:text-teal-400">Comments {post.comments}</button>
+								<button className="hover:text-white bg-gradient-to-t from-teal-900 to-violet-600 p-1 rounded-lg ">
+									Comments {item.comments}
+								</button>
 							</div>
 						</div>
 					</div>
