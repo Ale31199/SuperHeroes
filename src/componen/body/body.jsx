@@ -5,7 +5,6 @@ import like from '/src/img/heart.png';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [postsByUser, setPostsByUser] = useState({});
 	const [posta, setPosta] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -28,10 +27,6 @@ const boody = () => {
 
 		if (savedUserInfo) {
 			setUserInfo(JSON.parse(savedUserInfo));
-
-			setPostsByUser({
-				[JSON.parse(savedUserInfo).id]: [],
-			});
 		}
 	}, []);
 
@@ -74,14 +69,10 @@ const boody = () => {
 	};
 
 	const createPost = () => {
-		const currentUserId = userInfo.id;
-		const updatedPostsByUser = { ...postsByUser };
-		updatedPostsByUser[currentUserId].push({ ...post });
-		setPostsByUser(updatedPostsByUser);
-
+		setFeed((prevFeed) => [...prevFeed, { ...post }]);
 		setPost({
-			image: null,
-			descr: '',
+			image: post.image,
+			descr: post.descr,
 			likes: 0,
 			comments: 0,
 		});
@@ -219,7 +210,7 @@ const boody = () => {
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
-				{postsByUser.map((item, index) => (
+				{feed.map((item, index) => (
 					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500">
 						<div
 							className={`w-[100%] h-full overflow-hidden justify-center ${item.image === null ? 'hidden' : 'flex'}`}
