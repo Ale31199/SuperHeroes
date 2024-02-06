@@ -131,7 +131,7 @@ const boody = ({ firebaseApp }) => {
 				>
 					Buongiorno
 					<div className="mt-5 flex flex-row items-center gap-x-3">
-						<p className="text-teal-600 font-bold text-base md:text-5xl">{userInfo.name}</p>
+						<p className="text-teal-600 font-bold text-5xl md:text-5xl">{userInfo.name}</p>
 					</div>
 				</div>
 			)}
@@ -241,7 +241,7 @@ const boody = ({ firebaseApp }) => {
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
 							<div className="flex flex-row gap-x-2 items-center p-2 w-[100%] justify-start">
-								<img src={item.imagepic} className="w-[40px] h-[40px] rounded-full ml-5 cursor-pointer" />
+								<img src={item.imagepic} className="w-[40px] h-[40px] rounded-full cursor-pointer" />
 								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
 									{item.username}
 								</p>
