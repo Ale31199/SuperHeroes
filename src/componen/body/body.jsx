@@ -35,6 +35,12 @@ const boody = () => {
 	const apriPost = () => {
 		if (!posta) {
 			setPosta(true);
+			setPost({
+				image: null,
+				descr: '',
+				likes: 0,
+				comments: 0,
+			});
 		} else {
 			setPosta(false);
 		}
