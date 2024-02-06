@@ -226,9 +226,9 @@ const boody = () => {
 						</div>
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
-							<div className="flex flex-row w-fit">
+							<div className="flex flex-row gap-x-2 items-center w-[100%] justify-center">
 								<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-5" />
-								<p className="text-teal-400 font-bold text-start relative text-lg md:text-xl">{userInfo.name}</p>
+								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl">{userInfo.name}</p>
 							</div>
 							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%] object-cover">
 								{item.descr}
