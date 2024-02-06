@@ -62,7 +62,6 @@ const boody = () => {
 	const createPost = () => {
 		setFeed([...feed, post]);
 		setPosta(false);
-		location.reload();
 	};
 
 	return (
@@ -114,6 +113,7 @@ const boody = () => {
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
 						<textarea
 							placeholder="Write a description"
+							maxLength={1000}
 							value={descr}
 							onChange={scriviDesc}
 							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
