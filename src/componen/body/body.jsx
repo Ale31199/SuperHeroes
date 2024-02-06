@@ -178,18 +178,21 @@ const boody = () => {
 				{feed.map((item, index) => (
 					<div
 						key={index}
-						className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
+						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
 					>
 						<div className="w-[100%] h-full overflow-hidden justify-center">
-							<img
-								src={item.post.image}
-								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
-							/>
+							{item.post && item.post.image && (
+								<img
+									src={item.post.image}
+									className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+									alt="Uploaded Image"
+								/>
+							)}
 						</div>
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
 							<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
-							<p className="text-white font-bold text-start relative text-sm md:text-base  w-[90%]">
-								{item.post.descr}
+							<p className="text-white font-bold text-start relative text-sm md:text-base w-[90%]">
+								{item.post && item.post.descr ? item.post.descr : ''}
 							</p>
 							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button className="hover:text-teal-400 flex flex-row items-center">
