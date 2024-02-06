@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import sfondo from '/src/img/neon.jpg';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
+import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 
 const boody = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -16,6 +17,17 @@ const boody = () => {
 		likes: 0,
 		comments: 0,
 	});
+
+	const db = getFirestore(app);
+
+	useEffect(() => {
+		const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
+			const nuoviPosts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+			setFeed(nuoviPosts);
+		});
+
+		return () => unsubscribe(); // Cleanup alla disconnessione o rimosse gli ascoltatori
+	}, [db]);
 
 	useEffect(() => {
 		const savedLogin = localStorage.getItem('isLoggedIn');
@@ -68,14 +80,25 @@ const boody = () => {
 		}));
 	};
 
-	const createPost = () => {
-		setFeed((prevFeed) => [...prevFeed, { ...post }]);
-		setPost({
+	const createPost = async () => {
+		const newPost = {
 			image: post.image,
 			descr: post.descr,
 			likes: 0,
 			comments: 0,
+		};
+
+		const docRef = await addDoc(collection(db, 'posts'), newPost);
+
+		setFeed((prevFeed) => [...prevFeed, { id: docRef.id, ...newPost }]);
+
+		setPost({
+			image: null,
+			descr: '',
+			likes: 0,
+			comments: 0,
 		});
+
 		setPosta(false);
 	};
 
@@ -191,9 +214,7 @@ const boody = () => {
 				/>
 				<button
 					disabled={!isLoggedIn}
-					className={`flex flex-row w-[40%] items-center ${
-						isLoggedIn ? 'opacity-100' : 'opacity-35 cursor-not-allowed '
-					}`}
+					className={`flex-row w-[40%] items-center ${isLoggedIn ? 'flex' : 'hidden cursor-not-allowed '}`}
 				>
 					<div
 						onClick={apriPost}
