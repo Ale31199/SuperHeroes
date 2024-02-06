@@ -6,7 +6,7 @@ import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore
 
 const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [posta, setPosta] = useState(true);
+	const [posta, setPosta] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
 	const [selectedFile, setSelectedFile] = useState(null);
 	const fileInput = useRef(null);
