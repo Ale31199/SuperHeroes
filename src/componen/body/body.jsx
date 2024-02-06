@@ -69,7 +69,7 @@ const boody = () => {
 	};
 
 	const createPost = () => {
-		setFeed((prevFeed) => [...prevFeed, { ...post }]);
+		setFeed([...feed, post]);
 		setPost({
 			image: post.image,
 			descr: post.descr,
@@ -125,13 +125,17 @@ const boody = () => {
 				<div
 					className={`bg-neutral-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
-					<div className="w-full h-[350px] rounded-t-xl overflow-hidden">
+					<div className="w-full h-fit rounded-t-xl overflow-hidden">
 						{selectedFile && (
 							<>
 								{selectedFile.type.startsWith('image') ? (
-									<img src={URL.createObjectURL(selectedFile)} alt="Uploaded Image" />
+									<img
+										src={URL.createObjectURL(selectedFile)}
+										alt="Uploaded Image"
+										className="object-contain w-[100%] h-[350px]"
+									/>
 								) : selectedFile.type.startsWith('video') ? (
-									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden">
+									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden rounded-xl">
 										<source src={URL.createObjectURL(selectedFile)} type="video/mp4" />
 										<source src={URL.createObjectURL(selectedFile)} type="video/mov" />
 										Your browser does not support the video tag.
@@ -144,7 +148,7 @@ const boody = () => {
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
 						<textarea
 							placeholder="Write a description"
-							maxLength={1000}
+							maxLength={500}
 							value={post.descr}
 							onChange={scriviDesc}
 							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
@@ -211,10 +215,12 @@ const boody = () => {
 						key={index}
 						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
 					>
-						<div className={`w-[100%] h-full overflow-hidden justify-center`}>
+						<div
+							className={`w-[100%] h-full overflow-hidden justify-center ${post.image === null ? 'hidden' : 'flex'}`}
+						>
 							<img
 								src={post.image}
-								className="object-cover w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
+								className="object-contain w-[100%] h-[350px] rounded-t-xl hover:scale-125 transition-all duration-500"
 								alt="Uploaded Image"
 							/>
 						</div>
