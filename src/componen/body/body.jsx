@@ -6,6 +6,8 @@ import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore
 
 const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [count, setCount] = useState(0);
+	const [liked, setLiked] = useState(false);
 	const [posta, setPosta] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -78,7 +80,7 @@ const boody = ({ firebaseApp }) => {
 		const newPost = {
 			image: post.image,
 			descr: post.descr,
-			likes: 0,
+			likes: count,
 			comments: 0,
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
@@ -97,6 +99,16 @@ const boody = ({ firebaseApp }) => {
 
 		location.reload();
 		setPosta(false);
+	};
+
+	const mettiLike = () => {
+		if (post.username) {
+			setCount(1);
+			setLiked(true);
+		} else {
+			setCount(0);
+			setLiked(false);
+		}
 	};
 
 	return (
@@ -250,8 +262,13 @@ const boody = ({ firebaseApp }) => {
 								{item.descr}
 							</p>
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
-								<button className="hover:to-blue-600 flex flex-row items-center bg-gradient-to-t from-pink-900 to-violet-600 p-1 rounded-lg cursor-pointer">
-									<img src={like} className="w-[30px] h-[30px] invert mr-2 " />
+								<button
+									onClick={mettiLike}
+									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  to-violet-600 p-1 rounded-lg cursor-pointer ${
+										liked ? 'from-black border-2 border-white' : 'from-pink-900'
+									}`}
+								>
+									<img src={like} className="w-[20px] h-[20px] invert mr-2 " />
 									{item.likes}
 								</button>
 								<button className="hover:to-blue-600 bg-gradient-to-t from-teal-900 to-violet-600 p-1 rounded-lg cursor-pointer ">
