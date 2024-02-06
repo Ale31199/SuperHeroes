@@ -131,7 +131,7 @@ const boody = ({ firebaseApp }) => {
 				>
 					Buongiorno
 					<div className="mt-5 flex flex-row items-center gap-x-3">
-						<p className="text-teal-600 font-bold text-5xl md:text-5xl">{userInfo.name}</p>
+						<p className="text-teal-400 font-bold text-3xl md:text-5xl">{userInfo.name}</p>
 					</div>
 				</div>
 			)}
