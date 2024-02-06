@@ -80,7 +80,6 @@ const boody = ({ firebaseApp }) => {
 			descr: post.descr,
 			likes: 0,
 			comments: 0,
-			user: userInfo.email,
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), newPost);
@@ -92,7 +91,6 @@ const boody = ({ firebaseApp }) => {
 			descr: '',
 			likes: 0,
 			comments: 0,
-			user: userInfo.email,
 		});
 
 		location.reload();

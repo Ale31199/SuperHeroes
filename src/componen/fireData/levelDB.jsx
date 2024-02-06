@@ -7,7 +7,6 @@ const nuovoPost = {
 	image: "URL dell'immagine",
 	likes: 0,
 	comments: 0,
-	user: 'usermail',
 };
 
 const postsCol = collection(db, 'posts');
