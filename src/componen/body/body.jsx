@@ -56,7 +56,7 @@ const boody = () => {
 
 		if (file) {
 			setPost({
-				image: URL.createObjectURL(file),
+				image: URL.createObjectURL(selectedFile),
 			});
 		}
 	};
@@ -109,11 +109,11 @@ const boody = () => {
 						{selectedFile && (
 							<>
 								{selectedFile.type.startsWith('image') ? (
-									<img src={URL.createObjectURL(post.image)} alt="Uploaded Image" />
+									<img src={URL.createObjectURL(selectedFile)} alt="Uploaded Image" />
 								) : selectedFile.type.startsWith('video') ? (
 									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden">
-										<source src={URL.createObjectURL(post.image)} type="video/mp4" />
-										<source src={URL.createObjectURL(post.image)} type="video/mov" />
+										<source src={URL.createObjectURL(selectedFile)} type="video/mp4" />
+										<source src={URL.createObjectURL(selectedFile)} type="video/mov" />
 										Your browser does not support the video tag.
 									</video>
 								) : null}
