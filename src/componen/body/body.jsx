@@ -105,6 +105,10 @@ const boody = ({ firebaseApp }) => {
 		if (liked && userInfo.name) {
 			setCount(1);
 			setLiked(true);
+
+			setFeed((prevFeed) =>
+				prevFeed.map((item) => (item.id === post.id ? { ...item, likes: [...item.likes, userInfo.id] } : item))
+			);
 		} else {
 			setCount(0);
 			setLiked(false);
