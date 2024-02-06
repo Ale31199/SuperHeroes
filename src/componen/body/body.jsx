@@ -45,12 +45,6 @@ const boody = ({ firebaseApp }) => {
 	const apriPost = () => {
 		if (!posta) {
 			setPosta(true);
-			setPost({
-				image: post.image,
-				descr: '',
-				likes: 0,
-				comments: 0,
-			});
 		} else {
 			setPosta(false);
 		}
