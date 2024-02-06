@@ -175,7 +175,7 @@ const boody = () => {
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
-				{feed.map((item, index) => {
+				{feed.map((item, index) => (
 					<div
 						key={index}
 						className=" bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
@@ -199,8 +199,8 @@ const boody = () => {
 								<button className="hover:text-teal-400">Comments {item.post.comments}</button>
 							</div>
 						</div>
-					</div>;
-				})}
+					</div>
+				))}
 			</div>
 		</>
 	);
