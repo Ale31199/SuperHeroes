@@ -125,7 +125,7 @@ const boody = ({ firebaseApp }) => {
 
 			{isLoggedIn && (
 				<div
-					className={`text-white flex-col w-[100%] absolute top-[100px] items-center justify-center text-5xl ${
+					className={`text-white flex-col w-[100%] absolute top-[100px] items-center justify-center text-3xl ${
 						isLoggedIn ? 'flex' : 'hidden'
 					} ${posta ? 'hidden' : 'flex'}`}
 				>
@@ -241,7 +241,7 @@ const boody = ({ firebaseApp }) => {
 						</div>
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
-							<div className="flex flex-row gap-x-2 items-center w-[100%] justify-center">
+							<div className="flex flex-row gap-x-2 items-start p-2 w-[100%] justify-center">
 								<img src={item.imagepic} className="w-[40px] h-[40px] rounded-full ml-5 cursor-pointer" />
 								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
 									{item.username}
