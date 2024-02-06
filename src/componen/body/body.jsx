@@ -206,14 +206,14 @@ const boody = () => {
 			</div>
 
 			<div
-				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
+				className={`bg-neutral-900 border-2 border-neutral-700 bg-opacity-95 rounded-xl absolute w-fit h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
 					<div
 						key={index}
-						className="bg-black cursor-pointer relative w-[95%] rounded-xl h-fit transition-all duration-500"
+						className="bg-black cursor-pointer relative w-fit rounded-xl h-fit transition-all duration-500"
 					>
 						<div
 							className={`w-[100%] h-full overflow-hidden justify-center ${post.image === null ? 'hidden' : 'flex'}`}
@@ -227,7 +227,7 @@ const boody = () => {
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center">
 							<p className="text-teal-400 font-bold text-start relative ">{userInfo.name}</p>
-							<p className="text-white font-bold text-start relative text-sm md:text-base w-[90%]">{post.descr}</p>
+							<p className="text-white font-bold text-justify relative text-sm md:text-base w-[95%]">{post.descr}</p>
 							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button className="hover:text-teal-400 flex flex-row items-center">
 									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " />
