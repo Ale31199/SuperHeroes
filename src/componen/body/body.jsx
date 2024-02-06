@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import sfondo from '/src/img/neon.jpg';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
-import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 
 const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -10,6 +10,7 @@ const boody = ({ firebaseApp }) => {
 	const [liked, setLiked] = useState(false);
 	const [posta, setPosta] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
+	const [date, setDate] = useState(new Date());
 	const [selectedFile, setSelectedFile] = useState(null);
 	const fileInput = useRef(null);
 	const [feed, setFeed] = useState([]);
@@ -23,6 +24,8 @@ const boody = ({ firebaseApp }) => {
 	const db = getFirestore(firebaseApp);
 
 	useEffect(() => {
+		const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+
 		const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
 			const nuoviPosts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 			setFeed(nuoviPosts);
@@ -80,13 +83,17 @@ const boody = ({ firebaseApp }) => {
 		const newPost = {
 			image: post.image,
 			descr: post.descr,
-			likes: count,
+			likes: 0,
 			comments: 0,
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
+			tim: serverTimestamp(),
 		};
 
-		const docRef = await addDoc(collection(db, 'posts'), newPost);
+		const docRef = await addDoc(collection(db, 'posts'), {
+			...newPost,
+			timestamp: serverTimestamp(),
+		});
 
 		setFeed((prevFeed) => [...prevFeed, { id: docRef.id, ...newPost }]);
 
@@ -101,16 +108,10 @@ const boody = ({ firebaseApp }) => {
 		setPosta(false);
 	};
 
-	const mettiLike = () => {
-		if (liked && userInfo.name) {
-			setCount(1);
+	const mettiLike = (tasto) => {
+		if (!liked) {
 			setLiked(true);
-
-			setFeed((prevFeed) =>
-				prevFeed.map((item) => (item.id === post.id ? { ...item, likes: [...item.likes, userInfo.id] } : item))
-			);
 		} else {
-			setCount(0);
 			setLiked(false);
 		}
 	};
@@ -239,7 +240,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-center transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
@@ -267,7 +268,7 @@ const boody = ({ firebaseApp }) => {
 							</p>
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button
-									onClick={(event) => mettiLike(event.target.value)}
+									onClick={mettiLike}
 									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  to-violet-600 p-1 rounded-lg cursor-pointer ${
 										liked ? 'from-black border-2 border-white' : 'from-pink-900'
 									}`}
