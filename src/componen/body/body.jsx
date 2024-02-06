@@ -80,6 +80,8 @@ const boody = ({ firebaseApp }) => {
 			descr: post.descr,
 			likes: 0,
 			comments: 0,
+			username: userInfo.name,
+			imagepic: userInfo.imageUrl,
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), newPost);
@@ -240,9 +242,9 @@ const boody = ({ firebaseApp }) => {
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
 							<div className="flex flex-row gap-x-2 items-center w-[100%] justify-center">
-								<img src={userInfo.imageUrl} className="w-[40px] h-[40px] rounded-full ml-5 cursor-pointer" />
+								<img src={item.imagepic} className="w-[40px] h-[40px] rounded-full ml-5 cursor-pointer" />
 								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
-									{userInfo.name}
+									{item.username}
 								</p>
 							</div>
 							<p className="text-white font-bold text-start relative text-sm md:text-base w-[95%] object-cover cursor-default">
