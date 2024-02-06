@@ -34,7 +34,7 @@ const boody = () => {
 		if (!posta) {
 			setPosta(true);
 			setPost({
-				image: post.image,
+				image: null,
 				descr: '',
 				likes: 0,
 				comments: 0,
