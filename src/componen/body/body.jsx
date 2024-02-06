@@ -102,7 +102,7 @@ const boody = ({ firebaseApp }) => {
 	};
 
 	const mettiLike = () => {
-		if (post.username) {
+		if (userInfo.name) {
 			setCount(1);
 			setLiked(true);
 		} else {
