@@ -196,9 +196,12 @@ const boody = () => {
 							</p>
 							<div className="text-green-600 font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button className="hover:text-teal-400 flex flex-row items-center">
-									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " /> {item.post.likes}
+									<img src={like} className="w-[30px] h-[30px] invert mr-2 animate-bounce " />{' '}
+									{item.post && item.post.likes ? item.post.likes : 0}
 								</button>
-								<button className="hover:text-teal-400">Comments {item.post.comments}</button>
+								<button className="hover:text-teal-400">
+									Comments {item.post && item.post.comments ? item.post.comments : 0}
+								</button>
 							</div>
 						</div>
 					</div>
