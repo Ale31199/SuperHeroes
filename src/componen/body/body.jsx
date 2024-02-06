@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import sfondo from '/src/img/neon.jpg';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
-import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore';
 
-const boody = () => {
+const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [posta, setPosta] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
@@ -18,7 +18,7 @@ const boody = () => {
 		comments: 0,
 	});
 
-	const db = getFirestore(app);
+	const db = getFirestore(firebaseApp);
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
