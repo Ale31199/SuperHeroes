@@ -73,14 +73,19 @@ const boody = ({ firebaseApp }) => {
 		setSelectedFile(file);
 
 		if (file) {
-			setPost((prevPost) => ({
-				...prevPost,
-				image: URL.createObjectURL(file),
-			}));
-		}
+			const reader = new FileReader();
 
-		if (file) {
-			setPostit(false);
+			reader.onload = (e) => {
+				const base64Image = e.target.result;
+
+				setPost((prevPost) => ({
+					...prevPost,
+					image: base64Image,
+				}));
+				setPostit(false);
+			};
+
+			reader.readAsDataURL(file);
 		} else {
 			setPostit(true);
 		}
