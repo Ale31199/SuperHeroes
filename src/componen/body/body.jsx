@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import sfondo from '/src/img/neon.jpg';
+import sfondo from '/src/img/80.jpg';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
+import console from '/src/img/console.png';
 import Footer from '/src/componen/footer/footer';
 import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 
@@ -145,10 +146,12 @@ const boody = ({ firebaseApp }) => {
 
 	return (
 		<>
-			<div className={`fixed top-0 bg-black justify-center flex overflow-hidden w-full h-full`}>
+			<div
+				className={`fixed top-0 bg-gradient-to-r from-violet-950 to-teal-950 justify-center flex overflow-hidden w-full h-full`}
+			>
 				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]"></p>
 				<p className="text-white absolute text-lg md:text-xl top-[200px]"></p>
-				<img src={sfondo} className="opacity-50 blur-[2px] object-cover md:scale-125 transition-all duration-500 eff" />
+				<img src={sfondo} className="opacity-10 blur-[2px] object-cover md:scale-125 transition-all duration-500 eff" />
 				<style>
 					{`
           @keyframes eff {
@@ -161,7 +164,7 @@ const boody = ({ firebaseApp }) => {
           }
 
           .eff {
-            animation: eff 10s infinite alternate-reverse;
+            animation: eff 5s infinite alternate-reverse;
           }
         `}
 				</style>
@@ -186,9 +189,14 @@ const boody = ({ firebaseApp }) => {
 				}`}
 			>
 				<div
-					className={`bg-slate-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
+					className={`bg-slate-400 rounded-xl border-2 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
 					<div className="w-full h-fit rounded-t-xl overflow-hidden">
+						<img
+							src={console}
+							alt="Uploaded Image"
+							className={`object-contain w-[100%] h-[350px] ${selectedFile ? 'hidden' : 'flex'}`}
+						/>
 						{selectedFile && (
 							<>
 								{selectedFile.type.startsWith('image') ? (
@@ -248,13 +256,13 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
+				className={`bg-slate-400 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 				} ${posta ? 'hidden' : 'flex'}`}
 			>
 				<input
 					placeholder="Search something..."
-					className="p-3 w-[50%] h-[50px] outline-none text-white bg-slate-950 rounded-xl"
+					className="p-3 w-[50%] h-[50px] outline-none text-white bg-black rounded-xl"
 				/>
 				<button
 					disabled={!isLoggedIn}
@@ -271,12 +279,15 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`bg-slate-400 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
-					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500 eff2">
+					<div
+						key={index}
+						className="bg-gradient-to-r from-black to-black relative w-[95%] rounded-xl h-fit transition-all duration-500 eff2"
+					>
 						<style>
 							{`
 							.eff2{
