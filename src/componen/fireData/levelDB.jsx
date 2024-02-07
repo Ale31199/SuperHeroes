@@ -4,7 +4,7 @@ const db = getFirestore(app); // 'app' è l'istanza di Firebase inizializzata in
 
 const nuovoPost = {
 	descr: 'La tua descrizione del post',
-	image: "URL dell'immagine",
+	image: null,
 	likes: 0,
 	comments: 0,
 };
