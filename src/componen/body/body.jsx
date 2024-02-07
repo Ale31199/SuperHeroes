@@ -9,8 +9,9 @@ const boody = ({ firebaseApp }) => {
 	const [count, setCount] = useState(0);
 	const [liked, setLiked] = useState(false);
 	const [posta, setPosta] = useState(false);
+	const [postit, setPostit] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
-	const [date, setDate] = useState(new Date());
+	const [timeh, setTim] = useState(new Date());
 	const [selectedFile, setSelectedFile] = useState(null);
 	const fileInput = useRef(null);
 	const [feed, setFeed] = useState([]);
@@ -21,12 +22,19 @@ const boody = ({ firebaseApp }) => {
 		comments: 0,
 	});
 
+	useEffect(() => {
+		const newTime = setInterval(() => {
+			setTim(new Date());
+		}, 1000);
+		return () => clearInterval(newTime);
+	});
+
 	const db = getFirestore(firebaseApp);
 
 	useEffect(() => {
-		const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+		const q = query(collection(db, 'posts'), orderBy('tim', 'desc'));
 
-		const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
+		const unsubscribe = onSnapshot(q, (snapshot) => {
 			const nuoviPosts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 			setFeed(nuoviPosts);
 		});
@@ -69,6 +77,12 @@ const boody = ({ firebaseApp }) => {
 				image: URL.createObjectURL(file),
 			}));
 		}
+
+		if (file) {
+			setPostit(false);
+		} else {
+			setPostit(true);
+		}
 	};
 
 	const scriviDesc = (event) => {
@@ -77,6 +91,12 @@ const boody = ({ firebaseApp }) => {
 			...prevPost,
 			descr: newDescr,
 		}));
+
+		if (event.target.value !== '') {
+			setPostit(false);
+		} else {
+			setPostit(true);
+		}
 	};
 
 	const createPost = async () => {
@@ -87,7 +107,7 @@ const boody = ({ firebaseApp }) => {
 			comments: 0,
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
-			tim: serverTimestamp(),
+			tim: timeh,
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), {
@@ -103,8 +123,8 @@ const boody = ({ firebaseApp }) => {
 			likes: 0,
 			comments: 0,
 		});
-
 		setPosta(false);
+		setPostit(true);
 	};
 
 	const mettiLike = (tasto) => {
@@ -158,7 +178,7 @@ const boody = ({ firebaseApp }) => {
 				}`}
 			>
 				<div
-					className={`bg-slate-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
+					className={`bg-slate-900 rounded-xl border-4 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
 					<div className="w-full h-fit rounded-t-xl overflow-hidden">
 						{selectedFile && (
@@ -180,7 +200,7 @@ const boody = ({ firebaseApp }) => {
 						)}
 					</div>
 
-					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
+					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] h-[170px] overflow-hidden absolute top-[58.5%] justify-center items-center transition-all duration-500">
 						<textarea
 							placeholder="Write a description"
 							maxLength={500}
@@ -190,7 +210,7 @@ const boody = ({ firebaseApp }) => {
 						/>
 					</div>
 
-					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] h-[80px] overflow-hidden absolute bottom-[0%] rounded-b-xl bg-black justify-items-center grid grid-cols-3 items-center transition-all duration-500">
+					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] h-[80px] overflow-hidden absolute bottom-[0%] rounded-b-xl bg-black justify-items-center grid grid-cols-3 items-center transition-all duration-500">
 						<button
 							onClick={apriFile}
 							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-700 rounded-xl"
@@ -199,8 +219,11 @@ const boody = ({ firebaseApp }) => {
 							<input type="file" ref={fileInput} className="hidden" onChange={cambiaFile} />
 						</button>
 						<button
+							disabled={postit}
 							onClick={createPost}
-							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-700 rounded-xl"
+							className={`relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-700 rounded-xl ${
+								postit ? 'opacity-30' : 'opacity-100'
+							}`}
 						>
 							Post it!
 						</button>
@@ -216,7 +239,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-[65px] gap-y-10 p-4 mb-4 md:w-[85%] justify-center items-center transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 				} ${posta ? 'hidden' : 'flex'}`}
 			>
@@ -239,12 +262,23 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[95%] h-fit gap-y-10 p-4 md:w-[85%] xl:grid-cols-3  md:grid-cols-2 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
-					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500">
+					<div key={index} className="bg-black relative w-[95%] rounded-xl h-fit transition-all duration-500 eff2">
+						<style>
+							{`
+							.eff2{
+							animation: 0.6s linear eff2
+							}
+							@keyframes eff2{
+								from{opacity: 0.3; filter:blur(20px)}
+								to{opacity: 1; filter:blur(0px)}
+							}
+							`}
+						</style>
 						<div
 							className={`w-[100%] h-full overflow-hidden justify-center ${item.image === null ? 'hidden' : 'flex'}`}
 						>
@@ -261,6 +295,7 @@ const boody = ({ firebaseApp }) => {
 								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
 									{item.username}
 								</p>
+								<p className="hidden">{timeh.toLocaleTimeString()}</p>
 							</div>
 							<p className="text-white font-bold text-start relative text-sm md:text-base w-[95%] object-cover cursor-default">
 								{item.descr}
