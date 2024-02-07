@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import tema from './tema/theme.mp3';
 import Header from './componen/header/header';
 import Body from './componen/body/body';
+import Footer from './componen/footer/footer';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
@@ -23,7 +24,8 @@ const analytics = getAnalytics(app);
 const App = () => {
 	return (
 		<>
-			<div className="flex justify-center w-[100%] h-fit">
+			<div className="flex flex-row justify-center w-[100%] min-h-screen">
+				<Footer />
 				<Body />
 				<Header />
 			</div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import sfondo from '/src/img/neon.jpg';
 import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
+import Footer from '/src/componen/footer/footer';
 import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 
 const boody = ({ firebaseApp }) => {
@@ -236,6 +237,7 @@ const boody = ({ firebaseApp }) => {
 						</button>
 					</div>
 				</div>
+				<div className="w-[100%] h-[70px] absolute bottom-[-80px] flex"></div>
 			</div>
 
 			<div
@@ -262,7 +264,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 pb-[100px] grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
