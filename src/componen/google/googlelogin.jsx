@@ -24,7 +24,7 @@ function Login() {
 		try {
 			const result = await signInWithPopup(auth, provider);
 			const user = result.user;
-			const deco = result.credential.accessToken;
+			const deco = result.credential.deco;
 			console.log('Login success:', deco);
 
 			setUserInfo({
