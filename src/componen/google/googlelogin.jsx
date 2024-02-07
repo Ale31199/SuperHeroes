@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { jwtDecode } from 'jwt-decode';
 
 function Login() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
+	const auth = getAuth();
+	const provider = new GoogleAuthProvider();
 
 	useEffect(() => {
 		const savedLogin = localStorage.getItem('isLoggedIn');
@@ -18,37 +20,44 @@ function Login() {
 		}
 	}, []);
 
-	const handleLoginSuccess = (response) => {
-		const deco = jwtDecode(response?.credential);
-		console.log('Login success:', deco);
+	const handleLoginSuccess = async () => {
+		try {
+			const result = await signInWithPopup(auth, provider);
+			const user = result.user;
+			const deco = jwtDecode(result.credential);
+			console.log('Login success:', deco);
 
-		setUserInfo({
-			name: deco.name,
-			imageUrl: deco.picture,
-		});
-
-		setLoggedIn(true);
-		localStorage.setItem('isLoggedIn', JSON.stringify(true));
-		localStorage.setItem(
-			'userInfo',
-			JSON.stringify({
+			setUserInfo({
 				name: deco.name,
 				imageUrl: deco.picture,
-			})
-		);
-		location.reload();
+			});
+
+			setLoggedIn(true);
+			localStorage.setItem('isLoggedIn', JSON.stringify(true));
+			localStorage.setItem(
+				'userInfo',
+				JSON.stringify({
+					name: deco.name,
+					imageUrl: deco.picture,
+				})
+			);
+			location.reload();
+		} catch (error) {
+			console.log('Login error:', error);
+		}
 	};
 
-	const handleLoginError = (error) => {
-		console.log('Login error:', error);
-	};
-
-	const handleLogout = () => {
-		console.log('Logout');
-		location.reload();
-		setLoggedIn(false);
-		localStorage.setItem('isLoggedIn', JSON.stringify(false));
-		localStorage.removeItem('userInfo');
+	const handleLogout = async () => {
+		try {
+			console.log('Logout');
+			await signOut(auth);
+			setLoggedIn(false);
+			localStorage.setItem('isLoggedIn', JSON.stringify(false));
+			localStorage.removeItem('userInfo');
+			location.reload();
+		} catch (error) {
+			console.error('Logout error:', error);
+		}
 	};
 
 	return (
@@ -69,7 +78,12 @@ function Login() {
 			)}
 
 			{!isLoggedIn && (
-				<GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} buttonText="Accedi con Google" />
+				<button
+					onClick={handleLoginSuccess}
+					className="text-white bg-blue-500 hover:bg-blue-700 text-sm p-2 rounded-xl text-bold"
+				>
+					Accedi con Google
+				</button>
 			)}
 		</div>
 	);
