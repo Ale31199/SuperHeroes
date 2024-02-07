@@ -264,7 +264,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 pb-[100px] grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-slate-700 bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
@@ -319,6 +319,7 @@ const boody = ({ firebaseApp }) => {
 						</div>
 					</div>
 				))}
+				<div className="w-[100%] h-[70px] absolute bottom-[-100px] flex"></div>
 			</div>
 		</>
 	);
