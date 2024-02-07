@@ -24,12 +24,12 @@ function Login() {
 		try {
 			const result = await signInWithPopup(auth, provider);
 			const user = result.user;
-			const deco = jwtDecode(result.credential);
+			const deco = result.credential.accessToken;
 			console.log('Login success:', deco);
 
 			setUserInfo({
-				name: deco.name,
-				imageUrl: deco.picture,
+				name: user.displayName,
+				imageUrl: user.photoURL,
 			});
 
 			setLoggedIn(true);
@@ -37,8 +37,8 @@ function Login() {
 			localStorage.setItem(
 				'userInfo',
 				JSON.stringify({
-					name: deco.name,
-					imageUrl: deco.picture,
+					name: user.displayName,
+					imageUrl: user.photoURL,
 				})
 			);
 			location.reload();
