@@ -124,6 +124,8 @@ const boody = ({ firebaseApp }) => {
 			likes: 0,
 			comments: 0,
 		});
+
+		location.reload();
 		setPosta(false);
 		setPostit(true);
 	};
