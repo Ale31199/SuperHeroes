@@ -37,6 +37,7 @@ const boody = ({ firebaseApp }) => {
 	useEffect(() => {
 		const savedLogin = localStorage.getItem('isLoggedIn');
 		const savedUserInfo = localStorage.getItem('userInfo');
+		const saveImg = localStorage.getItem('newPost.image');
 
 		if (savedLogin) {
 			setLoggedIn(JSON.parse(savedLogin));
@@ -44,6 +45,10 @@ const boody = ({ firebaseApp }) => {
 
 		if (savedUserInfo) {
 			setUserInfo(JSON.parse(savedUserInfo));
+		}
+
+		if (saveImg) {
+			setPost(JSON.parse(saveImg));
 		}
 	}, []);
 
@@ -89,6 +94,8 @@ const boody = ({ firebaseApp }) => {
 			imagepic: userInfo.imageUrl,
 			tim: serverTimestamp(),
 		};
+
+		localStorage.setItem('newPost.image', JSON.stringify(newPost.image));
 
 		const docRef = await addDoc(collection(db, 'posts'), {
 			...newPost,
