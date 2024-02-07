@@ -128,7 +128,7 @@ const boody = ({ firebaseApp }) => {
 		setPostit(true);
 	};
 
-	const mettiLike = (tasto) => {
+	const mettiLike = () => {
 		if (!liked) {
 			setLiked(true);
 		} else {
