@@ -4,6 +4,7 @@ import add from '/src/img/add.png';
 import like from '/src/img/heart.png';
 import console from '/src/img/console.png';
 import Footer from '/src/componen/footer/footer';
+import imageConversion from 'image-conversion';
 import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 
 const boody = ({ firebaseApp }) => {
@@ -69,21 +70,55 @@ const boody = ({ firebaseApp }) => {
 		fileInput.current.click();
 	};
 
-	const cambiaFile = (event) => {
+	const cambiaFile = async (event) => {
 		const file = event.target.files[0];
 		setSelectedFile(file);
 
 		if (file) {
 			const reader = new FileReader();
 
-			reader.onload = (e) => {
-				const base64Image = e.target.result;
+			reader.onload = async (e) => {
+				const img = new Image();
+				img.src = e.target.result;
 
-				setPost((prevPost) => ({
-					...prevPost,
-					image: base64Image,
-				}));
-				setPostit(false);
+				img.onload = function () {
+					const canvas = document.createElement('canvas');
+					const ctx = canvas.getContext('2d');
+
+					// Ridimensiona l'immagine a una dimensione desiderata (ad esempio, 800x600)
+					const maxWidth = 1200;
+					const maxHeight = 720;
+					let width = img.width;
+					let height = img.height;
+
+					if (width > height) {
+						if (width > maxWidth) {
+							height *= maxWidth / width;
+							width = maxWidth;
+						}
+					} else {
+						if (height > maxHeight) {
+							width *= maxHeight / height;
+							height = maxHeight;
+						}
+					}
+
+					canvas.width = width;
+					canvas.height = height;
+
+					ctx.drawImage(img, 0, 0, width, height);
+					const base64Image = canvas.toDataURL(file.type, 0.9);
+					if (base64Image.length <= 1048487) {
+						// Aggiorna lo stato dell'immagine con il Base64
+						setPost((prevPost) => ({
+							...prevPost,
+							image: base64Image,
+						}));
+						setPostit(false);
+					} else {
+						console.error("L'immagine ridimensionata è ancora troppo grande per essere salvata.");
+					}
+				};
 			};
 
 			reader.readAsDataURL(file);
