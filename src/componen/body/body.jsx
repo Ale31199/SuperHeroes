@@ -5,7 +5,17 @@ import like from '/src/img/heart.png';
 import console from '/src/img/console.png';
 import Footer from '/src/componen/footer/footer';
 import imageConversion from 'image-conversion';
-import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
+import {
+	getFirestore,
+	collection,
+	onSnapshot,
+	addDoc,
+	serverTimestamp,
+	query,
+	orderBy,
+	updateDoc,
+	doc,
+} from 'firebase/firestore';
 
 const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -150,6 +160,7 @@ const boody = ({ firebaseApp }) => {
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
 			tim: timeh,
+			likedBy: [],
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), {
@@ -171,12 +182,15 @@ const boody = ({ firebaseApp }) => {
 		setPostit(true);
 	};
 
-	const mettiLike = () => {
-		if (!liked) {
-			setLiked(true);
-		} else {
-			setLiked(false);
-		}
+	const mettiLike = async (newPost) => {
+		const updatedLikes = newPost.likes === 0 ? 1 : 0;
+		setLiked(updatedLikes === 1 ? 0 : 1);
+		newPost.likedBy = [...newPost.likedBy, userInfo.id];
+		const postRef = doc(db, 'posts', newPost.id);
+		await updateDoc(postRef, {
+			likes: updatedLikes,
+			timestamp: serverTimestamp(),
+		});
 	};
 
 	return (
@@ -357,9 +371,9 @@ const boody = ({ firebaseApp }) => {
 							</p>
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button
-									onClick={mettiLike}
-									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  to-violet-600 p-1 rounded-lg cursor-pointer ${
-										liked ? 'from-black border-2 border-white' : 'from-pink-900'
+									onClick={() => mettiLike(item)}
+									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  p-1 rounded-lg cursor-pointer ${
+										item.likes ? 'from-green-700 to-green-700' : 'from-pink-700 to-pink-700'
 									}`}
 								>
 									<img src={like} className="w-[20px] h-[20px] invert mr-2 " />
