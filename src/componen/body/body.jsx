@@ -321,7 +321,7 @@ const boody = ({ firebaseApp }) => {
 				{feed.map((item, index) => (
 					<div
 						key={index}
-						className="bg-gradient-to-r from-black to-black relative w-[95%] rounded-xl h-fit transition-all duration-500 eff2"
+						className="bg-gradient-to-r from-black to-black relative w-[100%] rounded-xl h-fit transition-all duration-500 eff2"
 					>
 						<style>
 							{`
