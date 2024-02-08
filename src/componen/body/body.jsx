@@ -224,7 +224,7 @@ const boody = ({ firebaseApp }) => {
 				}`}
 			>
 				<div
-					className={`bg-slate-400 rounded-xl border-2 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
+					className={`bg-slate-900 rounded-xl border-2 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
 					<div className="w-full h-fit rounded-t-xl overflow-hidden">
 						<img
@@ -264,7 +264,7 @@ const boody = ({ firebaseApp }) => {
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] h-[80px] overflow-hidden absolute bottom-[0%] rounded-b-xl bg-black justify-items-center grid grid-cols-3 items-center transition-all duration-500">
 						<button
 							onClick={apriFile}
-							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-700 rounded-xl"
+							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-900 border-l-8 border-white rounded-r-md"
 						>
 							Choose media
 							<input type="file" ref={fileInput} className="hidden" onChange={cambiaFile} />
@@ -272,7 +272,7 @@ const boody = ({ firebaseApp }) => {
 						<button
 							disabled={postit}
 							onClick={createPost}
-							className={`relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-700 rounded-xl ${
+							className={`relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-900 border-b-8 border-white rounded-t-md ${
 								postit ? 'opacity-30' : 'opacity-100'
 							}`}
 						>
@@ -281,7 +281,7 @@ const boody = ({ firebaseApp }) => {
 
 						<button
 							onClick={apriPost}
-							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-red-400 p-2 bg-gradient-to-t from-red-900 to-red-700 rounded-xl"
+							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-red-400 p-2 bg-gradient-to-t from-red-900 to-red-900 border-r-8 border-white rounded-l-md"
 						>
 							Back
 						</button>
@@ -291,7 +291,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-400 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 				} ${posta ? 'hidden' : 'flex'}`}
 			>
@@ -314,7 +314,7 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-400 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`bg-slate-900 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
