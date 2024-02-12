@@ -15,11 +15,11 @@ import {
 	orderBy,
 	updateDoc,
 	doc,
+	getDoc,
 } from 'firebase/firestore';
 
 const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [count, setCount] = useState(0);
 	const [liked, setLiked] = useState(false);
 	const [posta, setPosta] = useState(false);
 	const [postit, setPostit] = useState(true);
@@ -95,7 +95,6 @@ const boody = ({ firebaseApp }) => {
 					const canvas = document.createElement('canvas');
 					const ctx = canvas.getContext('2d');
 
-					// Ridimensiona l'immagine a una dimensione desiderata (ad esempio, 800x600)
 					const maxWidth = 1200;
 					const maxHeight = 720;
 					let width = img.width;
@@ -119,7 +118,6 @@ const boody = ({ firebaseApp }) => {
 					ctx.drawImage(img, 0, 0, width, height);
 					const base64Image = canvas.toDataURL(file.type, 0.9);
 					if (base64Image.length <= 1048487) {
-						// Aggiorna lo stato dell'immagine con il Base64
 						setPost((prevPost) => ({
 							...prevPost,
 							image: base64Image,
@@ -160,7 +158,7 @@ const boody = ({ firebaseApp }) => {
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
 			tim: timeh,
-			likedBy: [],
+			likedBy: [userInfo.name],
 		};
 
 		const docRef = await addDoc(collection(db, 'posts'), {
@@ -182,11 +180,34 @@ const boody = ({ firebaseApp }) => {
 		setPostit(true);
 	};
 
+	const check = async (newPost) => {
+		const postRef = doc(db, 'posts', newPost);
+		const postDoc = await getDoc(postRef);
+
+		if (postDoc.exists()) {
+			const postData = postDoc.data();
+			if (postData.likedBy.includes(userInfo.name)) {
+				setLiked(true);
+			} else {
+				setLiked(false);
+			}
+		}
+	};
+
+	useEffect(() => {
+		check();
+	}, []);
+
 	const mettiLike = async (newPost) => {
 		const updatedLikes = newPost.likes === 0 ? 1 : 0;
 		setLiked(updatedLikes === 1 ? 0 : 1);
-		newPost.likedBy = [...newPost.likedBy, userInfo.id];
+		newPost.likedBy = [...newPost.likedBy, userInfo.name];
 		const postRef = doc(db, 'posts', newPost.id);
+		if (liked) {
+			await updateDoc(postRef, {
+				likedBy: [...newPost.likedBy],
+			});
+		}
 		await updateDoc(postRef, {
 			likes: updatedLikes,
 			timestamp: serverTimestamp(),
@@ -373,7 +394,7 @@ const boody = ({ firebaseApp }) => {
 								<button
 									onClick={() => mettiLike(item)}
 									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  p-1 rounded-lg cursor-pointer ${
-										item.likes ? 'from-green-700 to-green-700' : 'from-pink-700 to-pink-700'
+										item.likes ? 'from-green-700 to-green-700' : 'from-black to-black border-2 border-white'
 									}`}
 								>
 									<img src={like} className="w-[20px] h-[20px] invert mr-2 " />
