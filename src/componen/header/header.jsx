@@ -2,7 +2,7 @@ import '/src/App.css';
 import { useState } from 'react';
 import ita from '/src/italiano.json';
 import eng from '/src/inglese.json';
-import hc from '/src/img/LEVELG.png';
+import hc from '/src/img/Occulta.png';
 import menu from '/src/img/pause.png';
 import Login from '/src/componen/google/googlelogin.jsx';
 
@@ -32,7 +32,10 @@ const Header = () => {
 	return (
 		<>
 			<div className="flex absolute top-0 justify-between items-center w-[100%] h-[80px] bg-black text-white p-6">
-				<img src={hc} className="w-[300px] h-[70px]" />
+				<div className="flex flex-row gap-x-1 items-center cursor-default">
+					<img src={hc} className="w-[70px] h-[50px]" />
+					<p className="text-white text-5xl">OccultaVox</p>
+				</div>
 				<img
 					src={menu}
 					onClick={apriMenu}

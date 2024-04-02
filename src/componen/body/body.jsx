@@ -22,6 +22,7 @@ const boody = ({ firebaseApp }) => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [liked, setLiked] = useState(false);
 	const [posta, setPosta] = useState(false);
+	const [countLikes, setCountLikes] = useState(0);
 	const [postit, setPostit] = useState(true);
 	const [userInfo, setUserInfo] = useState({});
 	const [timeh, setTim] = useState(new Date());
@@ -94,7 +95,6 @@ const boody = ({ firebaseApp }) => {
 				img.onload = function () {
 					const canvas = document.createElement('canvas');
 					const ctx = canvas.getContext('2d');
-
 					const maxWidth = 1200;
 					const maxHeight = 720;
 					let width = img.width;
@@ -111,10 +111,8 @@ const boody = ({ firebaseApp }) => {
 							height = maxHeight;
 						}
 					}
-
 					canvas.width = width;
 					canvas.height = height;
-
 					ctx.drawImage(img, 0, 0, width, height);
 					const base64Image = canvas.toDataURL(file.type, 0.9);
 					if (base64Image.length <= 1048487) {
@@ -153,7 +151,7 @@ const boody = ({ firebaseApp }) => {
 		const newPost = {
 			image: post.image,
 			descr: post.descr,
-			likes: 0,
+			likes: countLikes,
 			comments: 0,
 			username: userInfo.name,
 			imagepic: userInfo.imageUrl,
@@ -199,6 +197,7 @@ const boody = ({ firebaseApp }) => {
 	}, []);
 
 	const mettiLike = async (newPost) => {
+		setCountLikes(countLikes + 1);
 		const updatedLikes = newPost.likes === 0 ? 1 : 0;
 		setLiked(updatedLikes === 1 ? 0 : 1);
 		newPost.likedBy = [...newPost.likedBy, userInfo.name];
@@ -217,11 +216,14 @@ const boody = ({ firebaseApp }) => {
 	return (
 		<>
 			<div
-				className={`fixed top-0 bg-gradient-to-r from-violet-950 to-teal-950 justify-center flex overflow-hidden w-full h-full`}
+				className={`fixed top-0 bg-gradient-to-r from-neutral-800 to-neutral-800 justify-center flex overflow-hidden w-full h-full`}
 			>
 				<p className="text-white absolute text-5xl md:text-6xl font-bold top-[100px]"></p>
 				<p className="text-white absolute text-lg md:text-xl top-[200px]"></p>
-				<img src={sfondo} className="opacity-10 blur-[2px] object-cover md:scale-125 transition-all duration-500 eff" />
+				<img
+					src={sfondo}
+					className="hidden opacity-10 blur-[2px] object-cover md:scale-125 transition-all duration-500 eff"
+				/>
 				<style>
 					{`
           @keyframes eff {
@@ -259,9 +261,9 @@ const boody = ({ firebaseApp }) => {
 				}`}
 			>
 				<div
-					className={`bg-slate-900 rounded-xl border-2 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
+					className={`bg-slate-900 border-2 border-black w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] transition-all duration-500 h-[630px] text-5xl flex justify-center text-white`}
 				>
-					<div className="w-full h-fit rounded-t-xl overflow-hidden">
+					<div className="w-full h-fit overflow-hidden">
 						<img
 							src={console}
 							alt="Uploaded Image"
@@ -276,7 +278,7 @@ const boody = ({ firebaseApp }) => {
 										className="object-contain w-[100%] h-[350px]"
 									/>
 								) : selectedFile.type.startsWith('video') ? (
-									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden rounded-xl">
+									<video controls width="300" height="200" className="w-full h-[350px] overflow-hidden ">
 										<source src={URL.createObjectURL(selectedFile)} type="video/mp4" />
 										<source src={URL.createObjectURL(selectedFile)} type="video/mov" />
 										Your browser does not support the video tag.
@@ -292,14 +294,14 @@ const boody = ({ firebaseApp }) => {
 							maxLength={500}
 							value={post.descr}
 							onChange={scriviDesc}
-							className="outline-none resize-none rounded-xl text-white bg-black text-base w-[95%] h-[170px]  p-3"
+							className="outline-none resize-none  text-white bg-black text-base w-[95%] h-[170px]  p-3"
 						/>
 					</div>
 
 					<div className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[50%] 2xl:w-[50%] h-[80px] overflow-hidden absolute bottom-[0%] rounded-b-xl bg-black justify-items-center grid grid-cols-3 items-center transition-all duration-500">
 						<button
 							onClick={apriFile}
-							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-900 border-l-8 border-white rounded-r-md"
+							className="relative w-full scale-75 transition-all duration-500 text-2xl cursor-pointer hover:to-green-400 p-2 bg-gradient-to-t from-green-900 to-green-900  "
 						>
 							Choose media
 							<input type="file" ref={fileInput} className="hidden" onChange={cambiaFile} />
@@ -307,7 +309,7 @@ const boody = ({ firebaseApp }) => {
 						<button
 							disabled={postit}
 							onClick={createPost}
-							className={`relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-900 border-b-8 border-white rounded-t-md ${
+							className={`relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-900  ${
 								postit ? 'opacity-30' : 'opacity-100'
 							}`}
 						>
@@ -316,7 +318,7 @@ const boody = ({ firebaseApp }) => {
 
 						<button
 							onClick={apriPost}
-							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-red-400 p-2 bg-gradient-to-t from-red-900 to-red-900 border-r-8 border-white rounded-l-md"
+							className="relative w-full scale-75  transition-all duration-500 text-2xl cursor-pointer hover:to-red-400 p-2 bg-gradient-to-t from-red-900 to-red-900  "
 						>
 							Back
 						</button>
@@ -326,13 +328,13 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
+				className={`bg-black absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-[65px] gap-y-10 p-4 mb-4 justify-center items-center transition-all duration-500 ${
 					isLoggedIn ? 'top-[280px]' : 'top-[110px]'
 				} ${posta ? 'hidden' : 'flex'}`}
 			>
 				<input
 					placeholder="Search something..."
-					className="p-3 w-[50%] h-[50px] outline-none text-white bg-black rounded-xl"
+					className="p-3 w-[50%] h-[50px] outline-none text-white bg-black border-b border-white"
 				/>
 				<button
 					disabled={!isLoggedIn}
@@ -340,7 +342,7 @@ const boody = ({ firebaseApp }) => {
 				>
 					<div
 						onClick={apriPost}
-						className="absolute right-[5%] w-[130px] scale-75 md:scale-90 transition-all duration-500 flex flex-row items-center justify-center cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-violet-700 rounded-xl"
+						className="absolute right-[5%] w-[130px] scale-75 md:scale-90 transition-all duration-500 flex flex-row items-center justify-center cursor-pointer hover:to-violet-400 p-2 bg-gradient-to-t from-blue-900 to-blue-900"
 					>
 						<img src={add} className="w-[40px] h-[40px] invert" />
 						<p className="text-white ml-2">Post</p>
@@ -349,14 +351,14 @@ const boody = ({ firebaseApp }) => {
 			</div>
 
 			<div
-				className={`bg-slate-900 border-2 border-black bg-opacity-95 rounded-xl absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 p-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
+				className={`absolute w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%] h-fit gap-y-10 mt-4 grid-cols-1 justify-items-center items-start transition-all duration-500 ${
 					isLoggedIn ? 'top-[350px]' : 'top-[180px]'
 				} ${posta ? 'hidden' : 'grid'}`}
 			>
 				{feed.map((item, index) => (
 					<div
 						key={index}
-						className="bg-gradient-to-r from-black to-black relative w-[100%] rounded-xl h-fit transition-all duration-500 eff2"
+						className="bg-gradient-to-r from-black to-black relative w-[100%] h-fit transition-all duration-500 eff2"
 					>
 						<style>
 							{`
@@ -374,14 +376,14 @@ const boody = ({ firebaseApp }) => {
 						>
 							<img
 								src={item.image}
-								className="object-cover w-[100%] h-[350px] rounded-t-xl cursor-pointer hover:scale-125 transition-all duration-500"
+								className="object-cover w-[100%] h-[350px] cursor-pointer hover:scale-125 transition-all duration-500"
 								alt="Uploaded Image"
 							/>
 						</div>
 
 						<div className="flex flex-col justify-start p-2 md:p-3 gap-y-3 items-center overflow-hidden">
 							<div className="flex flex-row gap-x-2 items-center p-2 w-[100%] justify-start">
-								<img src={item.imagepic} className="w-[40px] h-[40px] rounded-full cursor-pointer" />
+								<img src={item.imagepic} className="w-[40px] h-[40px]  cursor-pointer" />
 								<p className="text-teal-400 font-bold text-center relative text-lg md:text-xl cursor-pointer">
 									{item.username}
 								</p>
@@ -393,14 +395,14 @@ const boody = ({ firebaseApp }) => {
 							<div className="text-white font-bold text-sm md:text-base w-full flex justify-between p-2 items-center">
 								<button
 									onClick={() => mettiLike(item)}
-									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  p-1 rounded-lg cursor-pointer ${
-										item.likes ? 'from-green-700 to-green-700' : 'from-black to-black border-2 border-white'
+									className={`hover:to-blue-600 flex flex-row items-center bg-gradient-to-t  p-1  cursor-pointer ${
+										item.likes ? 'from-green-700 to-green-700' : 'from-violet-700 to-violet-700 '
 									}`}
 								>
 									<img src={like} className="w-[20px] h-[20px] invert mr-2 " />
 									{item.likes}
 								</button>
-								<button className="hover:to-blue-600 bg-gradient-to-t from-teal-900 to-violet-600 p-1 rounded-lg cursor-pointer ">
+								<button className="hover:to-blue-600 bg-gradient-to-t from-violet-700 to-violet-700 p-1  cursor-pointer ">
 									Comments {item.comments}
 								</button>
 							</div>
